@@ -6,7 +6,7 @@ function PostDetailContent() {
   return (
     <div className="post-detail__content">
       <div className="thumbnail">
-        <img src="/assets/images/blog-detail.jpg" alt="blog-title" />
+        <img src="" alt="blog-title" />
       </div>
       <div className="content-padding">
         {/* Post Detail rich text editor */}

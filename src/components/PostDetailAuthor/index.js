@@ -1,4 +1,3 @@
-import "./main.css";
 function PostDetailAuthor() {
   return (
     <div className="post-author">

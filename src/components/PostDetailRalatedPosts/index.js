@@ -1,5 +1,5 @@
 import ArticleRelated from "../ArticleRelated";
-import "./main.css";
+
 function PostDetailRelatedPosts() {
   return (
     <div className="related-post">
