@@ -24,6 +24,9 @@ function App() {
           <SearchPage />
         </Route>
         <Route exact path="/post">
+          <h1 className="text-center">404 </h1>
+        </Route>
+        <Route exact path="/post/:slug">
           <PostDetailPage />
         </Route>
         <div className="spacing" />

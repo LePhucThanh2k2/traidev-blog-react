@@ -1,49 +1,47 @@
-import './button.css'
-import cls from 'classnames'
-import IconLoading from '../IconLoading'
+import "./button.css";
+import cls from "classnames";
+import IconLoading from "../IconLoading";
 
 function Button({
-  type = 'default',
+  type = "default",
   loading,
-  loadingPos = 'left',
+  loadingPos = "left",
   size,
-  as = 'button',
+  as = "button",
   htmlType,
   className,
   children,
   ...restProps
 }) {
-
-  const classes = cls('btn', {
-    'btn-default': type === 'default',
-    'btn-category': type === 'category',
-    'btn-primary': type === 'primary',
-    'btn-size-large': size === 'large'
-  }, className)
+  const classes = cls(
+    "btn",
+    {
+      "btn-default": type === "default",
+      "btn-category": type === "category",
+      "btn-primary": type === "primary",
+      "btn-size-large": size === "large",
+    },
+    className
+  );
 
   const content = (
     <>
-      {loading && loadingPos === 'left' && <IconLoading />}
+      {loading && loadingPos === "left" && <IconLoading />}
       {children}
-      {loading && loadingPos === 'right' && <IconLoading />}
+      {loading && loadingPos === "right" && <IconLoading />}
     </>
-  )
+  );
 
   const injectedProps = {
     className: classes,
     type: htmlType,
-    ...restProps
+    ...restProps,
+  };
+  if (as === "a") {
+    return <a {...injectedProps}>{content}</a>;
   }
 
-  if (as === 'a') {
-    return (
-      <a {...injectedProps}>{ content }</a>
-    )
-  }
-
-  return (
-    <button {...injectedProps}>{ content }</button>
-  )
+  return <button {...injectedProps}>{content}</button>;
 }
 
-export default Button
+export default Button;

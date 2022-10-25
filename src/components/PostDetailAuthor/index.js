@@ -1,9 +1,10 @@
+import "./main.css";
 function PostDetailAuthor() {
   return (
     <div className="post-author">
       <div className="post-author__bg-avatar">
         <a href="#" className="post-author__avatar">
-          <img src="./assets/images/blog-detail.jpg" alt="a" />
+          <img src="./assets/images/john-doe.png" alt="a" />
         </a>
       </div>
       <div className="post-author__nickname">

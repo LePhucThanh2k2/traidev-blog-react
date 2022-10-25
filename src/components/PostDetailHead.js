@@ -1,14 +1,17 @@
+import { useParams } from "react-router-dom";
+
 function PostDetailHead({
-  title = " Lorem Ipsum ",
   nameAuthor = "John Smith",
   date = "May 15, 2021",
   view = "2",
   comment = "5",
 }) {
+  let { slug } = useParams();
+
   return (
     <div className="post-detail__head">
       <div className="tcl-container">
-        <h1 className="post-detail__title">{title}</h1>
+        <h1 className="post-detail__title">{slug}</h1>
         <ul className="post-detail__info">
           <li className="item author">
             By
