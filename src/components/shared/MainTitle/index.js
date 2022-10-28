@@ -3,8 +3,8 @@ import cls from "classnames";
 import Button from "../Button";
 
 function MainTitle({ children, btnLabel, btnProps = {}, type }) {
-  const classes = cls("main-title spacing block-center", {
-    "main-title__search": (type = "search"),
+  const classes = cls("main-title spacing", {
+    "main-title__search": type === "search",
     "d-flex tcl-jc-between tcl-ais-center": btnLabel,
   });
 

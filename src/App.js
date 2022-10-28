@@ -6,7 +6,17 @@ import RegisterPage from "./pages/RegisterPage";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import SearchPage from "./pages/SearchPage";
 import PostDetailPage from "./pages/PostDetailPage";
+import { useDispatch, useSelector } from "react-redux";
 function App() {
+  // const dispatch = useDispatch();
+  // const posts = useSelector((state) => state.listPost);
+  // function handleClick() {
+  //   dispatch(actGetListPostAsync({ currPage: 1, pageSize: 3 }));
+  // }
+  // let html = posts.map((item, idx) => {
+  //   return <li key={idx}>{item.post_content}</li>;
+  // });
+
   return (
     <Router>
       <div className="wrapper-content">

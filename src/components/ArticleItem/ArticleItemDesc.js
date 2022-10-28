@@ -1,8 +1,5 @@
-
-
-export default function ArticleItemDesc() {
-  return (
-    <p className="article-item__desc">Markdown is a lightweight markup language with plain-text-formatting
-											syntax. Its design allows it to…</p>
-  )
+export default function ArticleItemDesc({ content }) {
+  const descPre = content.replace("<p>", "");
+  const desc = descPre.replace("</p>", "");
+  return <p className="article-item__desc">{desc}</p>;
 }
