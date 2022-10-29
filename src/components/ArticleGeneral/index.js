@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actGetPostGeneralAsync } from "../../store/posts/action";
 import ArticleItem from "../ArticleItem";
@@ -5,11 +6,19 @@ import Button from "../shared/Button";
 import MainTitle from "../shared/MainTitle";
 
 function ArticleGeneral() {
+  const [currentPage, setCurrentPage] = useState(2);
+  const [hideButton, setHideButton] = useState(true);
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.postReducer.listPostGeneral);
+  const { list: data, totalPages } = useSelector(
+    (state) => state.postReducer.listPostGeneral
+  );
+  const hasMorePost = currentPage <= totalPages;
   function handleLoadMore() {
-    console.log("aaa");
-    dispatch(actGetPostGeneralAsync({ per_page: 4, page: 1 }));
+    if (currentPage === totalPages) {
+      setHideButton(false);
+    }
+    dispatch(actGetPostGeneralAsync({ per_page: 3, page: currentPage }));
+    setCurrentPage(currentPage + 1);
   }
   return (
     <div className="articles-list section">
@@ -21,23 +30,25 @@ function ArticleGeneral() {
         <div className="tcl-row">
           {data.map((item, index) => {
             return (
-              <div className="tcl-col-12 tcl-col-md-6">
+              <div className="tcl-col-12 tcl-col-md-6" key={index}>
                 <ArticleItem isStyleCard isShowAvatar={false} data={item} />
               </div>
             );
           })}
         </div>
         {/* End Row News List */}
-        <div className="text-center">
-          <Button
-            type="primary"
-            size="large"
-            loading={true}
-            onClick={handleLoadMore}
-          >
-            Tải thêm
-          </Button>
-        </div>
+        {hasMorePost && (
+          <div className="text-center">
+            <Button
+              type="primary"
+              size="large"
+              loading={true}
+              onClick={handleLoadMore}
+            >
+              Tải thêm
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

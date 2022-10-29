@@ -16,41 +16,48 @@ function ArticlePopular() {
           </a>
         </div>
         {/* End Main Title */}
-        <div className="popular-news__list spacing">
-          <div className="popular-news__list--left">
-            <div className="popular-news__list--row">
-              {/* Popular news card */}
-              <div className="popular-news__list--card">
-                <ArticleItem
-                  isStyleCard
-                  isShowCategories
-                  isShowDesc
-                  data={data[0]}
-                />
+        {data.length > 0 && (
+          <div className="popular-news__list spacing">
+            <div className="popular-news__list--left">
+              <div className="popular-news__list--row">
+                {/* Popular news card */}
+                <div className="popular-news__list--card">
+                  <ArticleItem
+                    isStyleCard
+                    isShowCategories
+                    isShowDesc
+                    data={data[0]}
+                  />
+                </div>
+                {/* End Popular news card */}
+                {/* Popular news card */}
+                <div className="popular-news__list--card">
+                  <ArticleItem
+                    isStyleCard
+                    isShowCategories
+                    isShowDesc
+                    data={data[1]}
+                  />
+                </div>
+                {/* End Popular news card */}
               </div>
-              {/* End Popular news card */}
-              {/* Popular news card */}
-              <div className="popular-news__list--card">
-                <ArticleItem
-                  isStyleCard
-                  isShowCategories
-                  isShowDesc
-                  data={data[1]}
-                />
+            </div>
+            <div className="popular-news__list--right">
+              <div className="popular-news__list--row">
+                {/* Popular news card */}
+                <div className="popular-news__list--card">
+                  <ArticleItem
+                    isStyleCard
+                    isStyleRow
+                    isShowDesc
+                    data={data[2]}
+                  />
+                </div>
+                {/* End Popular news card */}
               </div>
-              {/* End Popular news card */}
             </div>
           </div>
-          <div className="popular-news__list--right">
-            <div className="popular-news__list--row">
-              {/* Popular news card */}
-              <div className="popular-news__list--card">
-                <ArticleItem isStyleCard isStyleRow isShowDesc data={data[2]} />
-              </div>
-              {/* End Popular news card */}
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

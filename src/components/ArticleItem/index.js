@@ -19,20 +19,21 @@ export default function ArticleItem({
     "style-card": isStyleCard,
     "style-row": isStyleRow,
   });
+  console.log(data);
   return (
     <article className={classes}>
-      <ArticleItemThumb url={data.featured_media_url} />
+      <ArticleItemThumb url={data.thumb} />
       <div className="article-item__content">
         {isShowCategories && <ArticleItemCategories />}
         {isShowCategories && <ArticleItemStats />}
 
-        <ArticleItemTitle slug={data.slug} title={data.title.rendered} />
+        <ArticleItemTitle slug={data.slug} title={data.title} />
 
-        {isShowDesc && <ArticleItemDesc content={data.excerpt.rendered} />}
+        {isShowDesc && <ArticleItemDesc content={data.shortDesc} />}
 
         <ArticleItemInfo
           isShowAvatar={isShowAvatar}
-          infoAuthor={data.author_data}
+          infoAuthor={data.author}
           date={data.date}
         />
       </div>

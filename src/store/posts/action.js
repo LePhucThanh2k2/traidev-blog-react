@@ -1,3 +1,4 @@
+import mappingPostData from "../../helper/mappingPostData";
 import postService from "../../services/post";
 
 export const GET_POST_LATEST = "GET_POST_LATEST ";
@@ -10,14 +11,14 @@ export function actGetPostLatest(post) {
 export function actGetPostPopular(post) {
   return { type: GET_POST_POPULAR, payload: { post } };
 }
-export function actGetPostGeneral(post) {
-  return { type: GET_POST_GENERAL, payload: { post } };
+export function actGetPostGeneral(post, totalPages) {
+  return { type: GET_POST_GENERAL, payload: { post, totalPages } };
 }
 
 export function actGetPostLatestAsync({ per_page, page }) {
   return async (dispatch) => {
     const response = await postService.getList({ per_page, page });
-    const posts = response.data;
+    const posts = response.data.map(mappingPostData);
     dispatch(actGetPostLatest(posts));
   };
 }
@@ -25,14 +26,15 @@ export function actGetPostLatestAsync({ per_page, page }) {
 export function actGetPostPopularAsync({ per_page, page, orderby }) {
   return async (dispatch) => {
     const response = await postService.getList({ per_page, page, orderby });
-    const posts = response.data;
+    const posts = response.data.map(mappingPostData);
     dispatch(actGetPostPopular(posts));
   };
 }
 export function actGetPostGeneralAsync({ per_page, page }) {
   return async (dispatch) => {
     const response = await postService.getList({ per_page, page });
-    const posts = response.data;
-    dispatch(actGetPostGeneral(posts));
+    const totalPages = parseInt(response.headers["x-wp-totalpages"]);
+    const posts = response.data.map(mappingPostData);
+    dispatch(actGetPostGeneral(posts, totalPages));
   };
 }

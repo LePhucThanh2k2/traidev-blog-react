@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 function ArticleLatest() {
   const dataPost = useSelector((state) => state.postReducer.listPostLatest);
+  console.log(dataPost);
   return (
     <div className="latest-news section">
       <div className="tcl-container">

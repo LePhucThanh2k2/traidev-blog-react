@@ -4,7 +4,7 @@ function PostDetailComments() {
       <div className="comments__form">
         <div className="comments__form--control">
           <div className="comments__section--avatar">
-            <a href="#">
+            <a href="/#">
               <img src="./assets/images/avatar1.jpg" alt="a" />
             </a>
           </div>
@@ -20,12 +20,12 @@ function PostDetailComments() {
         <li className="item">
           <div className="comments__section">
             <div className="comments__section--avatar">
-              <a href="#">
+              <a href="/#">
                 <img src="./assets/images/avatar1.jpg" alt="a" />
               </a>
             </div>
             <div className="comments__section--content">
-              <a href="#" className="comments__section--user">
+              <a href="/#" className="comments__section--user">
                 John Smith
               </a>
               <p className="comments__section--time">2 minutes ago</p>
@@ -43,12 +43,12 @@ function PostDetailComments() {
             <li className="item">
               <div className="comments__section">
                 <div className="comments__section--avatar">
-                  <a href="#">
+                  <a href="/#">
                     <img src="./assets/images/avatar3.jpg" alt="a" />
                   </a>
                 </div>
                 <div className="comments__section--content">
-                  <a href="#" className="comments__section--user">
+                  <a href="/#" className="comments__section--user">
                     John Smith
                   </a>
                   <p className="comments__section--time">2 minutes ago</p>
@@ -62,12 +62,12 @@ function PostDetailComments() {
             <li className="item">
               <div className="comments__section">
                 <div className="comments__section--avatar">
-                  <a href="#">
+                  <a href="/#">
                     <img src="./assets/images/avatar4.jpg" alt="a" />
                   </a>
                 </div>
                 <div className="comments__section--content">
-                  <a href="#" className="comments__section--user">
+                  <a href="/#" className="comments__section--user">
                     John Smith
                   </a>
                   <p className="comments__section--time">2 minutes ago</p>
@@ -84,7 +84,7 @@ function PostDetailComments() {
           <div className="comments__form">
             <div className="comments__form--control">
               <div className="comments__section--avatar">
-                <a href="#">
+                <a href="/#">
                   <img src="./assets/images/avatar1.jpg" alt="a" />
                 </a>
               </div>
@@ -99,12 +99,12 @@ function PostDetailComments() {
         <li className="item">
           <div className="comments__section">
             <div className="comments__section--avatar">
-              <a href="#">
+              <a href="/#">
                 <img src="./assets/images/avatar2.jpg" alt="a" />
               </a>
             </div>
             <div className="comments__section--content">
-              <a href="#" className="comments__section--user">
+              <a href="/#" className="comments__section--user">
                 John Smith
               </a>
               <p className="comments__section--time">2 minutes ago</p>
@@ -116,7 +116,7 @@ function PostDetailComments() {
             </div>
           </div>
           <div className="comments__hidden">
-            <a href="#">
+            <a href="/#">
               <i className="icons ion-ios-undo" /> Xem thêm 2 câu trả lời
             </a>
           </div>
@@ -125,12 +125,12 @@ function PostDetailComments() {
         <li className="item">
           <div className="comments__section">
             <div className="comments__section--avatar">
-              <a href="#">
+              <a href="/#">
                 <img src="./assets/images/avatar3.jpg" alt="a" />
               </a>
             </div>
             <div className="comments__section--content">
-              <a href="#" className="comments__section--user">
+              <a href="/#" className="comments__section--user">
                 John Smith
               </a>
               <p className="comments__section--time">2 minutes ago</p>

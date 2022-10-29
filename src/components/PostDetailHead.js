@@ -15,7 +15,7 @@ function PostDetailHead({
         <ul className="post-detail__info">
           <li className="item author">
             By
-            <a href="#">
+            <a href="/">
               <strong>{nameAuthor}</strong>
             </a>
           </li>

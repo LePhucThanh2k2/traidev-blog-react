@@ -6,7 +6,7 @@ import RegisterPage from "./pages/RegisterPage";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import SearchPage from "./pages/SearchPage";
 import PostDetailPage from "./pages/PostDetailPage";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 function App() {
   // const dispatch = useDispatch();
   // const posts = useSelector((state) => state.listPost);
@@ -24,19 +24,19 @@ function App() {
         <Route exact path="/">
           <HomePage />
         </Route>
-        <Route exact path="/login">
+        <Route path="/login">
           <LoginPage />
         </Route>
-        <Route exact path="/register">
+        <Route path="/register">
           <RegisterPage />
         </Route>
-        <Route exact path="/search">
+        <Route path="/search">
           <SearchPage />
         </Route>
-        <Route exact path="/post">
+        <Route path="/post">
           <h1 className="text-center">404 </h1>
         </Route>
-        <Route exact path="/post/:slug">
+        <Route path="/post/:slug">
           <PostDetailPage />
         </Route>
         <div className="spacing" />

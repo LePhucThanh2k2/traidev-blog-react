@@ -1,11 +1,11 @@
 function ArticleRelated() {
   return (
     <article className="related-post__card">
-      <a href="#" className="related-post__title">
+      <a href="/#" className="related-post__title">
         5 BBQ Recipes to Get Your Summer Started
       </a>
       <div className="related-post__info">
-        <a className="related-post__author" href="#">
+        <a className="related-post__author" href="/#">
           John Smith
         </a>
         <p className="related-post__date">
