@@ -7,19 +7,22 @@ import MainTitle from "../shared/MainTitle";
 
 function ArticleGeneral() {
   const [currentPage, setCurrentPage] = useState(2);
-  const [hideButton, setHideButton] = useState(true);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { list: data, totalPages } = useSelector(
     (state) => state.postReducer.listPostGeneral
   );
   const hasMorePost = currentPage <= totalPages;
+
   function handleLoadMore() {
-    if (currentPage === totalPages) {
-      setHideButton(false);
-    }
-    dispatch(actGetPostGeneralAsync({ per_page: 3, page: currentPage }));
+    setLoading(true);
+    dispatch(actGetPostGeneralAsync({ per_page: 2, page: currentPage }));
     setCurrentPage(currentPage + 1);
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   }
+
   return (
     <div className="articles-list section">
       <div className="tcl-container">
@@ -42,7 +45,7 @@ function ArticleGeneral() {
             <Button
               type="primary"
               size="large"
-              loading={true}
+              loading={loading}
               onClick={handleLoadMore}
             >
               Tải thêm

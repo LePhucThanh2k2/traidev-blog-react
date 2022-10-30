@@ -3,7 +3,6 @@ import ArticleItemAvatar from "./ArticleItemAvatar";
 
 export default function ArticleItemInfo({ isShowAvatar, infoAuthor, date }) {
   const { dateRelative, dateFormatted } = formatRelativeDate(date);
-  console.log(dateRelative, dateFormatted);
   return (
     <div className="article-item__info">
       {isShowAvatar && <ArticleItemAvatar />}

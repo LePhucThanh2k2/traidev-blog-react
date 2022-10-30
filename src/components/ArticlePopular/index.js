@@ -3,8 +3,8 @@ import ArticleItem from "../ArticleItem";
 import "./popular-news-list.css";
 
 function ArticlePopular() {
-  const data = useSelector((state) => state.postReducer.listPostPopular);
-  console.log(data);
+  const dataPost = useSelector((state) => state.postReducer.listPostPopular);
+
   return (
     <div className="popular-news section bg-white-blue">
       <div className="tcl-container">
@@ -16,7 +16,7 @@ function ArticlePopular() {
           </a>
         </div>
         {/* End Main Title */}
-        {data.length > 0 && (
+        {dataPost.length > 0 && (
           <div className="popular-news__list spacing">
             <div className="popular-news__list--left">
               <div className="popular-news__list--row">
@@ -26,7 +26,7 @@ function ArticlePopular() {
                     isStyleCard
                     isShowCategories
                     isShowDesc
-                    data={data[0]}
+                    data={dataPost[0]}
                   />
                 </div>
                 {/* End Popular news card */}
@@ -36,7 +36,7 @@ function ArticlePopular() {
                     isStyleCard
                     isShowCategories
                     isShowDesc
-                    data={data[1]}
+                    data={dataPost[1]}
                   />
                 </div>
                 {/* End Popular news card */}
@@ -50,7 +50,7 @@ function ArticlePopular() {
                     isStyleCard
                     isStyleRow
                     isShowDesc
-                    data={data[2]}
+                    data={dataPost[2]}
                   />
                 </div>
                 {/* End Popular news card */}

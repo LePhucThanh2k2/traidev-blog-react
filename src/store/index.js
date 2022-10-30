@@ -1,8 +1,10 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import thunk from "redux-thunk";
 import postReducer from "./posts/reducer";
+import categoryReducer from "./categories/reducer";
 const rootReducer = combineReducers({
   postReducer,
+  categoryReducer,
 });
 
 const store = createStore(

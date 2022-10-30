@@ -19,12 +19,11 @@ export default function ArticleItem({
     "style-card": isStyleCard,
     "style-row": isStyleRow,
   });
-  console.log(data);
   return (
     <article className={classes}>
       <ArticleItemThumb url={data.thumb} />
       <div className="article-item__content">
-        {isShowCategories && <ArticleItemCategories />}
+        {isShowCategories && <ArticleItemCategories data={data.categoryList} />}
         {isShowCategories && <ArticleItemStats />}
 
         <ArticleItemTitle slug={data.slug} title={data.title} />

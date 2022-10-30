@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import ArticleGeneral from "../components/ArticleGeneral";
 import ArticleLatest from "../components/ArticleLatest";
 import ArticlePopular from "../components/ArticlePopular";
+import { actGetListCategoryAsync } from "../store/categories/action";
 import {
   actGetPostGeneralAsync,
   actGetPostLatestAsync,
@@ -17,6 +18,7 @@ function HomePage() {
       actGetPostPopularAsync({ per_page: 3, page: 1, orderby: "post_views" })
     );
     dispatch(actGetPostGeneralAsync({ per_page: 3, page: 1 }));
+    dispatch(actGetListCategoryAsync({ per_page: 100, page: 1 }));
   }, [dispatch]);
 
   return (

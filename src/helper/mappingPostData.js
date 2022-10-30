@@ -7,6 +7,7 @@ function mappingPostData(item) {
     title: item.title.rendered,
     shortDesc: item.excerpt.rendered,
     author: item.author_data,
+    categoryList: item.categories,
   };
 }
 export default mappingPostData;

@@ -1,10 +1,10 @@
 import { api } from "./api";
 
-const postService = {
+const categoryService = {
   getList: (params) => {
-    return api.get(`post/getListPagination.php`, {
+    return api.get(`/wp/v2/categories`, {
       params: params,
     });
   },
 };
-export default postService;
+export default categoryService;

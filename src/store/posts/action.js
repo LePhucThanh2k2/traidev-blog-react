@@ -12,7 +12,10 @@ export function actGetPostPopular(post) {
   return { type: GET_POST_POPULAR, payload: { post } };
 }
 export function actGetPostGeneral(post, totalPages) {
-  return { type: GET_POST_GENERAL, payload: { post, totalPages } };
+  return {
+    type: GET_POST_GENERAL,
+    payload: { post, totalPages },
+  };
 }
 
 export function actGetPostLatestAsync({ per_page, page }) {
