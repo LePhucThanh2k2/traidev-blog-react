@@ -14,15 +14,22 @@ function ArticleGeneral() {
   );
   const hasMorePost = currentPage <= totalPages;
 
+  function handleFetch() {
+    setLoading(false);
+  }
   function handleLoadMore() {
     setLoading(true);
-    dispatch(actGetPostGeneralAsync({ per_page: 2, page: currentPage }));
+    dispatch(
+      actGetPostGeneralAsync(
+        {
+          per_page: 2,
+          page: currentPage,
+        },
+        handleFetch
+      )
+    );
     setCurrentPage(currentPage + 1);
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
   }
-
   return (
     <div className="articles-list section">
       <div className="tcl-container">

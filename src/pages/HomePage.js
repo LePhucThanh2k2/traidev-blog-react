@@ -17,7 +17,7 @@ function HomePage() {
     dispatch(
       actGetPostPopularAsync({ per_page: 3, page: 1, orderby: "post_views" })
     );
-    dispatch(actGetPostGeneralAsync({ per_page: 3, page: 1 }));
+    dispatch(actGetPostGeneralAsync({ per_page: 3, page: 1 }, () => {}));
     dispatch(actGetListCategoryAsync({ per_page: 100, page: 1 }));
   }, [dispatch]);
 
