@@ -9,19 +9,14 @@ function SearchPage() {
   return (
     <div className="articles-list section">
       <div className="tcl-container">
-        {/* Main Title */}
         <MainTitle type="search">4 Results found for "{keyword}"</MainTitle>
-
-        {/* End Main Title */}
-        {/* End Row News List */}
 
         <div className="tcl-row tcl-jc-center">
           <div className="tcl-col-12 tcl-col-md-8">
-            <ArticleItem isStyleCard={true} isShowCategoies={true} />
+            <ArticleItem isStyleCard={true} isShowCategories={true} />
           </div>
         </div>
-        {/* End Row News List */}
-        {/* Btn Loadmore */}
+
         <div className="text-center">
           <Button type="primary" size="large" loading={true}>
             Load More

@@ -10,4 +10,5 @@ function mappingPostData(item) {
     categoryList: item.categories,
   };
 }
+
 export default mappingPostData;

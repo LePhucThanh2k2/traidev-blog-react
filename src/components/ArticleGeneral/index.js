@@ -14,20 +14,16 @@ function ArticleGeneral() {
   );
   const hasMorePost = currentPage <= totalPages;
 
-  function handleFetch() {
-    setLoading(false);
-  }
   function handleLoadMore() {
     setLoading(true);
     dispatch(
-      actGetPostGeneralAsync(
-        {
-          per_page: 2,
-          page: currentPage,
-        },
-        handleFetch
-      )
-    );
+      actGetPostGeneralAsync({
+        per_page: 2,
+        page: currentPage,
+      })
+    ).then(() => {
+      setLoading(false);
+    });
     setCurrentPage(currentPage + 1);
   }
   return (

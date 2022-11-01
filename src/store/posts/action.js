@@ -33,12 +33,13 @@ export function actGetPostPopularAsync({ per_page, page, orderby }) {
     dispatch(actGetPostPopular(posts));
   };
 }
-export function actGetPostGeneralAsync({ per_page, page }, funcHandleState) {
+export function actGetPostGeneralAsync({ per_page, page }) {
   return async (dispatch) => {
     const response = await postService.getList({ per_page, page });
     const totalPages = parseInt(response.headers["x-wp-totalpages"]);
     const posts = response.data.map(mappingPostData);
     dispatch(actGetPostGeneral(posts, totalPages));
-    funcHandleState();
+
+    // funcHandleState();
   };
 }

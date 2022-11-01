@@ -19,6 +19,7 @@ export default function ArticleItem({
     "style-card": isStyleCard,
     "style-row": isStyleRow,
   });
+  if (!data) return null;
   return (
     <article className={classes}>
       <ArticleItemThumb url={data.thumb} />

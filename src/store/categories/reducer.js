@@ -1,7 +1,7 @@
 import { GET_LIST_CATEGORY } from "./action";
 
 const initState = {
-  categoryList: [],
+  categoryList: {},
 };
 function categoryReducer(state = initState, action) {
   switch (action.type) {
