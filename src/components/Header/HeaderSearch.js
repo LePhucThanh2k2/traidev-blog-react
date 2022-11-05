@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 
 function HeaderSearch() {
   let history = useHistory();
-
   const [keyword, setKeyword] = useState("");
   function handleChange(e) {
     const value = e.target.value;

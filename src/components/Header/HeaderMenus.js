@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function renderMenuLevel(item) {
   let isHasChilds = false;
@@ -24,9 +25,9 @@ function HeaderMenus() {
         <ul className="header-nav__lists">{dataMenu.map(renderMenuLevel)}</ul>
         <ul className="header-nav__lists">
           <li className="user">
-            <a href="/login">
+            <Link to="/login">
               <i className="icons ion-person" /> Tài khoản
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

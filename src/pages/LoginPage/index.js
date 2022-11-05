@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Input from "../../components/shared/Input";
 import "./main.css";
 function LoginPage() {
@@ -26,7 +27,7 @@ function LoginPage() {
                   <button className="btn btn-primary btn-size-large">
                     Submit
                   </button>
-                  <a href="/register">Regiter</a>
+                  <Link to="/register">Register</Link>
                 </div>
               </form>
             </div>

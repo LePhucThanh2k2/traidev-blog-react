@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Input from "../components/shared/Input";
 
 import "./LoginPage/main.css";
@@ -38,7 +39,7 @@ function RegisterPage() {
                   <button className="btn btn-primary btn-size-large">
                     Submit
                   </button>
-                  <a href="/login">Login</a>
+                  <Link to="/login">Login</Link>
                 </div>
               </form>
             </div>

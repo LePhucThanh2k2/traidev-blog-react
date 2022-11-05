@@ -8,7 +8,7 @@ function PostDetailComments() {
               <img src="./assets/images/avatar1.jpg" alt="a" />
             </a>
           </div>
-          <textarea name defaultValue={""} />
+          <textarea defaultValue={""} />
         </div>
         <div className="text-right">
           <button className="btn btn-default">Submit</button>
@@ -88,7 +88,7 @@ function PostDetailComments() {
                   <img src="./assets/images/avatar1.jpg" alt="a" />
                 </a>
               </div>
-              <textarea name defaultValue={""} />
+              <textarea defaultValue={""} />
             </div>
             <div className="text-right">
               <button className="btn btn-default">Submit</button>

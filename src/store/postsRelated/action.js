@@ -1,0 +1,13 @@
+import postService from "../../services/post";
+export const GET_POST_RELATED_BY_AUTHOR = "GET_POST_RELATED_BY_AUTHOR ";
+export function actGetpostsRelated(data) {
+  return { type: GET_POST_RELATED_BY_AUTHOR, payload: { data } };
+}
+
+export function actGetpostsRelatedAsync({ author }) {
+  return async (dispatch) => {
+    const response = await postService.getList({ author });
+    const posts = response.data;
+    dispatch(actGetpostsRelated(posts));
+  };
+}

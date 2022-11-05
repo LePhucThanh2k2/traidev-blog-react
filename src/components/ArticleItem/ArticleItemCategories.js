@@ -1,6 +1,10 @@
 import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 
 export default function ArticleItemCategories({ data }) {
+  const location = useLocation();
+  const url = location.pathname;
+  const isPostCategoryPage = url.includes("category");
   const dataCategory = useSelector(
     (state) => state.categoryReducer.categoryList
   );
@@ -11,9 +15,16 @@ export default function ArticleItemCategories({ data }) {
         if (!category) return null;
         return (
           <li key={category.id}>
-            <a href="/" className="btn btn-category">
+            <Link
+              to={
+                isPostCategoryPage
+                  ? `${category.id}`
+                  : `category/${category.id}`
+              }
+              className="btn btn-category"
+            >
               {category.name}
-            </a>
+            </Link>
           </li>
         );
       })}

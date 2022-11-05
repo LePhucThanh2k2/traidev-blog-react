@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actGetPostGeneralAsync } from "../../store/posts/action";
 import ArticleItem from "../ArticleItem";
@@ -27,7 +27,7 @@ function ArticleGeneral() {
     setCurrentPage(currentPage + 1);
   }
   return (
-    <div className="articles-list section">
+    <div className="articles-list section" data-aos="fade-right">
       <div className="tcl-container">
         {/* Main Title */}
         <MainTitle btnLabel="Xem them">Bai Viet Tong Hop</MainTitle>
@@ -36,7 +36,11 @@ function ArticleGeneral() {
         <div className="tcl-row">
           {data.map((item, index) => {
             return (
-              <div className="tcl-col-12 tcl-col-md-6" key={index}>
+              <div
+                className="tcl-col-12 tcl-col-md-6"
+                key={index}
+                data-aos="fade-up"
+              >
                 <ArticleItem isStyleCard isShowAvatar={false} data={item} />
               </div>
             );

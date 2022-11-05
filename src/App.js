@@ -3,13 +3,16 @@ import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SearchPage from "./pages/SearchPage";
 import PostDetailPage from "./pages/PostDetailPage";
 import { useEffect } from "react";
 import { actGetMainMenuAsync } from "./store/menu/action";
 import { actGetListCategoryAsync } from "./store/categories/action";
 import { useDispatch } from "react-redux";
+import backgroundPage404 from "./assets/images/page404.jpg";
+import PostCategoryPage from "./pages/PostCategoryPage";
+import Aos from "aos";
 function App() {
   const dispatch = useDispatch();
 
@@ -22,25 +25,29 @@ function App() {
     <Router>
       <div className="wrapper-content">
         <Header />
-        <Route exact path="/">
-          <HomePage />
-        </Route>
-        <Route path="/login">
-          <LoginPage />
-        </Route>
-        <Route path="/register">
-          <RegisterPage />
-        </Route>
-        <Route path="/search">
-          <SearchPage />
-        </Route>
-        <Route path="/post">
-          <h1 className="text-center">404 </h1>
-        </Route>
-        <Route path="/post/:slug">
-          <PostDetailPage />
-        </Route>
-        <div className="spacing" />
+        <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
+          <Route path="/register">
+            <RegisterPage />
+          </Route>
+          <Route path="/search">
+            <SearchPage />
+          </Route>
+          {/* <Route path="*">
+            <img src={backgroundPage404} alt="page_404" className="page404" />
+          </Route> */}
+          <Route path="/post/:slug">
+            <PostDetailPage />
+          </Route>
+          <Route path="/category/:id">
+            <PostCategoryPage />
+          </Route>
+        </Switch>
         <Footer />
       </div>
     </Router>

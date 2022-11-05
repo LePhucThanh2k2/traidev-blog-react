@@ -1,38 +1,41 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ArticleItem from "../components/ArticleItem";
 import Button from "../components/shared/Button";
 import MainTitle from "../components/shared/MainTitle";
-import { actGetListPostByKeywordAsync } from "../store/search/action";
+import { actGetListPostByIdCategoryAsync } from "../store/postsCategory/action";
 
-function SearchPage() {
-  const location = useLocation();
-  const keyword = new URLSearchParams(location.search).get("q");
+function Categories() {
+  let { id: idCategory } = useParams();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
-      actGetListPostByKeywordAsync({ per_page: 3, page: 1, search: keyword })
+      actGetListPostByIdCategoryAsync({
+        per_page: 3,
+        page: 1,
+        categories: idCategory,
+      })
     );
-  }, [location, keyword, dispatch]);
+  }, [idCategory, dispatch]);
 
   const {
     list: data,
     totalItems,
     totalPages,
     currentPage,
-  } = useSelector((state) => state.searchReducer.listPost);
+  } = useSelector((state) => state.postsCategory.listPost);
 
   const hideButton = currentPage === totalPages;
   function handleLoadMore() {
     setLoading(true);
     if (!hideButton) {
       dispatch(
-        actGetListPostByKeywordAsync({
+        actGetListPostByIdCategoryAsync({
           per_page: 3,
           page: currentPage + 1,
-          search: keyword,
+          categories: idCategory,
         })
       ).then(() => {
         setLoading(false);
@@ -43,9 +46,9 @@ function SearchPage() {
   return (
     <div className="articles-list section">
       <div className="tcl-container">
-        <MainTitle type="search">
-          {totalItems} Results found for "{keyword}"
-        </MainTitle>
+        <MainTitle type="search">{`${totalItems} ${
+          totalItems < 2 ? "Result" : "Results"
+        } found`}</MainTitle>
 
         {data.map((item) => {
           return (
@@ -53,7 +56,6 @@ function SearchPage() {
               <div className="tcl-col-12 tcl-col-md-8">
                 <ArticleItem
                   isHighLight={true}
-                  keyword={keyword}
                   isStyleCard={true}
                   isShowCategories={true}
                   data={item}
@@ -78,4 +80,4 @@ function SearchPage() {
     </div>
   );
 }
-export default SearchPage;
+export default Categories;

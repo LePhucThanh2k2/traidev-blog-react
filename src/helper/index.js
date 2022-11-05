@@ -5,3 +5,10 @@ export function handleHashCategoryById(items) {
   }
   return objData;
 }
+export function createMarkup(strHtml) {
+  return { __html: strHtml };
+}
+
+export function strHtmlAfterMarkup(funcMarkup) {
+  return <div dangerouslySetInnerHTML={funcMarkup} />;
+}

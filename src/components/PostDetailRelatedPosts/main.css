@@ -49,6 +49,8 @@
   margin: 0;
   color: #718096;
   font-size: 0.75rem;
+  display: flex;
+  align-items: center;
 }
 
 .related-post__author {

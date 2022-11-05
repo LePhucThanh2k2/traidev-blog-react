@@ -8,6 +8,8 @@ import ArticleItemCategories from "./ArticleItemCategories";
 import ArticleItemStats from "./ArticleItemStats";
 
 export default function ArticleItem({
+  keyword = "",
+  isHighLight = false,
   isStyleRow = false,
   isStyleCard = false,
   isShowDesc = false,
@@ -27,7 +29,12 @@ export default function ArticleItem({
         {isShowCategories && <ArticleItemCategories data={data.categoryList} />}
         {isShowCategories && <ArticleItemStats />}
 
-        <ArticleItemTitle slug={data.slug} title={data.title} />
+        <ArticleItemTitle
+          slug={data.slug}
+          title={data.title}
+          isHighLight={isHighLight}
+          keyword={keyword}
+        />
 
         {isShowDesc && <ArticleItemDesc content={data.shortDesc} />}
 
