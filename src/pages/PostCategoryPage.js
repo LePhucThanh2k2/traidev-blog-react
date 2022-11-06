@@ -53,7 +53,7 @@ function Categories() {
         {data.map((item) => {
           return (
             <div className="tcl-row tcl-jc-center" key={item.id}>
-              <div className="tcl-col-12 tcl-col-md-8">
+              <div className="tcl-col-12 tcl-col-md-8" data-aos="fade-up-left">
                 <ArticleItem
                   isHighLight={true}
                   isStyleCard={true}

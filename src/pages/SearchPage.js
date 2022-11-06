@@ -50,7 +50,7 @@ function SearchPage() {
         {data.map((item) => {
           return (
             <div className="tcl-row tcl-jc-center" key={item.id}>
-              <div className="tcl-col-12 tcl-col-md-8">
+              <div className="tcl-col-12 tcl-col-md-8" data-aos="fade-up-right">
                 <ArticleItem
                   isHighLight={true}
                   keyword={keyword}

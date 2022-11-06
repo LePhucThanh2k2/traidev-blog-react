@@ -2,7 +2,7 @@ import { formatRelativeDate } from "../../helper/day";
 
 function ArticleRelated({ data }) {
   return (
-    <article className="related-post__card">
+    <article className="related-post__card" data-aos="fade-left">
       <a href="/#" className="related-post__title">
         {data.title.rendered}
       </a>

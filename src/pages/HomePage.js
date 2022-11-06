@@ -8,12 +8,10 @@ import {
   actGetPostLatestAsync,
   actGetPostPopularAsync,
 } from "../store/posts/action";
-import AOS from "../../node_modules/aos/dist/aos";
-import "../../node_modules/aos/dist/aos.css";
+
 function HomePage() {
   const dispatch = useDispatch();
   useEffect(() => {
-    AOS.init({ duration: 700 });
     dispatch(actGetPostLatestAsync({ per_page: 3, page: 1 }));
     dispatch(
       actGetPostPopularAsync({ per_page: 3, page: 2, orderby: "post_views" })

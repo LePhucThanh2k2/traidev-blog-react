@@ -10,15 +10,17 @@ import { useEffect } from "react";
 import { actGetMainMenuAsync } from "./store/menu/action";
 import { actGetListCategoryAsync } from "./store/categories/action";
 import { useDispatch } from "react-redux";
-import backgroundPage404 from "./assets/images/page404.jpg";
+// import backgroundPage404 from "./assets/images/page404.jpg";
 import PostCategoryPage from "./pages/PostCategoryPage";
-import Aos from "aos";
+import AOS from "../node_modules/aos/dist/aos";
+import "../node_modules/aos/dist/aos.css";
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(actGetListCategoryAsync({ per_page: 100, page: 1 }));
     dispatch(actGetMainMenuAsync());
+    AOS.init({ duration: 700, once: true });
   }, [dispatch]);
 
   return (

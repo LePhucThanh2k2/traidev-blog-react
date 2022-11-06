@@ -21,10 +21,10 @@ function ArticlePopular() {
         {/* End Main Title */}
         {dataPost.length > 0 && (
           <div className="popular-news__list spacing">
-            <div className="popular-news__list--left">
+            <div className="popular-news__list--left" data-aos="fade-right">
               <div className="popular-news__list--row">
                 {/* Popular news card */}
-                <div className="popular-news__list--card" data-aos="fade-right">
+                <div className="popular-news__list--card">
                   <ArticleItem
                     isStyleCard
                     isShowCategories
@@ -34,7 +34,7 @@ function ArticlePopular() {
                 </div>
                 {/* End Popular news card */}
                 {/* Popular news card */}
-                <div className="popular-news__list--card" data-aos="fade-right">
+                <div className="popular-news__list--card">
                   <ArticleItem
                     isStyleCard
                     isShowCategories
@@ -48,7 +48,7 @@ function ArticlePopular() {
             <div className="popular-news__list--right">
               <div className="popular-news__list--row">
                 {/* Popular news card */}
-                <div className="popular-news__list--card" data-aos="fade-up">
+                <div className="popular-news__list--card" data-aos="fade-left">
                   <ArticleItem
                     isStyleCard
                     isStyleRow
