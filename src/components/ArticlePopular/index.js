@@ -17,21 +17,21 @@ function ArticlePopular() {
   };
 
   function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
+    const { onClick } = props;
     return (
       <div className={"btn-arrow next"} onClick={onClick}>
         {" "}
-        <i class="fa-solid fa-chevron-right"></i>
+        <i className="fa-solid fa-chevron-right"></i>
       </div>
     );
   }
 
   function SamplePrevArrow(props) {
-    const { className, style, onClick } = props;
+    const { onClick } = props;
     return (
       <div className={"btn-arrow pre"} onClick={onClick}>
         {" "}
-        <i class="fa-solid fa-angle-left"></i>
+        <i className="fa-solid fa-angle-left"></i>
       </div>
     );
   }

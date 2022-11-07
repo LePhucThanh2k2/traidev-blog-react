@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import PostDetailAuthor from "../PostDetailAuthor";
 import PostDetailRelatedPosts from "../PostDetailRelatedPosts";
 

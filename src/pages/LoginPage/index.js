@@ -3,46 +3,69 @@ import { Link } from "react-router-dom";
 import Input from "../../components/shared/Input";
 import "./main.css";
 function LoginPage() {
-  const [infoUser, setInfoUser] = useState({
-    username: "",
-    password: "",
+  // const [infoUser, setInfoUser] = useState({
+  //   username: "",
+  //   password: "",
+  // });
+  const [formData, setFormData] = useState({
+    username: {
+      value: "",
+      error: "",
+    },
+    password: {
+      value: "",
+      error: "",
+    },
   });
-  const [textNotificationForUsername, setTextNotificationForUsername] =
-    useState(null);
-  const [textNotificationForPassword, setTextNotificationForPassword] =
-    useState(null);
+
+  // const [textNotificationForUsername, setTextNotificationForUsername] =
+  //   useState(null);
+  // const [textNotificationForPassword, setTextNotificationForPassword] =
+  //   useState(null);
 
   function handleChange(e) {
     const value = e.target.value;
     const name = e.target.name;
-    setInfoUser({
-      ...infoUser,
-      [name]: value,
+
+    let error = "";
+    if (name === "username") {
+      if (value === "") {
+        error = "username not empty";
+      } else if (value.length < 6) {
+        error = "Please enter username above 6 characters";
+      }
+    }
+    setFormData({
+      ...formData,
+      [name]: {
+        value: value,
+        error: error,
+      },
     });
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    setTextNotificationForUsername(null);
-    setTextNotificationForPassword(null);
-    if (infoUser.username.length < 6) {
-      setTextNotificationForUsername(
-        "Please enter username above 6 characters"
-      );
-    }
-    if (infoUser.password.length < 6) {
-      setTextNotificationForPassword(
-        "Please enter password above 6 characters"
-      );
-    }
+    // setTextNotificationForUsername(null);
+    // setTextNotificationForPassword(null);
+    // if (infoUser.username.length < 6) {
+    //   setTextNotificationForUsername(
+    //     "Please enter username above 6 characters"
+    //   );
+    // }
+    // if (infoUser.password.length < 6) {
+    //   setTextNotificationForPassword(
+    //     "Please enter password above 6 characters"
+    //   );
+    // }
   }
-  function handleClickForm() {
-    if (infoUser.username.length < 6) {
-      setTextNotificationForUsername(
-        "Please enter username above 6 characters"
-      );
-    }
-  }
+  // function handleClickForm() {
+  //   if (infoUser.username.length < 6) {
+  //     setTextNotificationForUsername(
+  //       "Please enter username above 6 characters"
+  //     );
+  //   }
+  // }
   return (
     <main className="login">
       <div className="spacing" />
@@ -54,8 +77,8 @@ function LoginPage() {
               <form onSubmit={handleSubmit}>
                 <Input
                   name="username"
-                  value={infoUser.username}
-                  textNotification={textNotificationForUsername}
+                  value={formData.username.value}
+                  textNotification={formData.username.error}
                   label="Username"
                   placeholder="Enter Username ..."
                   type="text"
@@ -63,14 +86,14 @@ function LoginPage() {
                 />
                 <Input
                   name="password"
-                  value={infoUser.password}
-                  textNotification={textNotificationForPassword}
+                  value={formData.password.value}
+                  textNotification={""}
                   label="Password"
                   placeholder="Enter Password ..."
                   type="password"
                   icon={<i className="toggle-password ion-eye" />}
                   onChange={handleChange}
-                  onClick={handleClickForm}
+                  // onClick={handleClickForm}
                 />
 
                 <div className="d-flex tcl-jc-between tcl-ais-center">

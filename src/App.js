@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { actGetMainMenuAsync } from "./store/menu/action";
 import { actGetListCategoryAsync } from "./store/categories/action";
 import { useDispatch } from "react-redux";
-// import backgroundPage404 from "./assets/images/page404.jpg";
+import backgroundPage404 from "./assets/images/page404.jpg";
 import PostCategoryPage from "./pages/PostCategoryPage";
 import AOS from "../node_modules/aos/dist/aos";
 import "../node_modules/aos/dist/aos.css";
@@ -41,14 +41,14 @@ function App() {
           <Route path="/search">
             <SearchPage />
           </Route>
-          {/* <Route path="*">
-            <img src={backgroundPage404} alt="page_404" className="page404" />
-          </Route> */}
           <Route path="/post/:slug">
             <PostDetailPage />
           </Route>
           <Route path="/category/:id">
             <PostCategoryPage />
+          </Route>
+          <Route path="*">
+            <img src={backgroundPage404} alt="page_404" className="page404" />
           </Route>
         </Switch>
         <Footer />

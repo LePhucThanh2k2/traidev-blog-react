@@ -6,7 +6,7 @@ import Button from "../shared/Button";
 import MainTitle from "../shared/MainTitle";
 
 function ArticleGeneral() {
-  const [currentPage, setCurrentPage] = useState(2);
+  const [currentPage, setCurrentPage] = useState(3);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { list: data, totalPages } = useSelector(

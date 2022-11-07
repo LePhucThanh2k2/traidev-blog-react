@@ -4,8 +4,7 @@ import { useLocation } from "react-router-dom";
 import ArticleItem from "../components/ArticleItem";
 import Button from "../components/shared/Button";
 import MainTitle from "../components/shared/MainTitle";
-import { actGetListPostByKeywordAsync } from "../store/search/action";
-
+import { actGetListPostByKeywordAsync } from "../store/posts/action";
 function SearchPage() {
   const location = useLocation();
   const keyword = new URLSearchParams(location.search).get("q");
@@ -21,17 +20,17 @@ function SearchPage() {
     list: data,
     totalItems,
     totalPages,
-    currentPage,
-  } = useSelector((state) => state.searchReducer.listPost);
+    currentPageSearch,
+  } = useSelector((state) => state.postReducer.listPostBySearch);
 
-  const hideButton = currentPage === totalPages;
+  const hideButton = currentPageSearch === totalPages;
   function handleLoadMore() {
     setLoading(true);
     if (!hideButton) {
       dispatch(
         actGetListPostByKeywordAsync({
           per_page: 3,
-          page: currentPage + 1,
+          page: currentPageSearch + 1,
           search: keyword,
         })
       ).then(() => {
@@ -46,22 +45,25 @@ function SearchPage() {
         <MainTitle type="search">
           {totalItems} Results found for "{keyword}"
         </MainTitle>
-
-        {data.map((item) => {
-          return (
-            <div className="tcl-row tcl-jc-center" key={item.id}>
-              <div className="tcl-col-12 tcl-col-md-8" data-aos="fade-up-right">
-                <ArticleItem
-                  isHighLight={true}
-                  keyword={keyword}
-                  isStyleCard={true}
-                  isShowCategories={true}
-                  data={item}
-                />
+        {data &&
+          data.map((item) => {
+            return (
+              <div className="tcl-row tcl-jc-center" key={item.id}>
+                <div
+                  className="tcl-col-12 tcl-col-md-8"
+                  data-aos="fade-up-right"
+                >
+                  <ArticleItem
+                    isHighLight={true}
+                    keyword={keyword}
+                    isStyleCard={true}
+                    isShowCategories={true}
+                    data={item}
+                  />
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
         {!hideButton && (
           <div className="text-center">
             <Button

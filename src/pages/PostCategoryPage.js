@@ -4,10 +4,11 @@ import { useParams } from "react-router-dom";
 import ArticleItem from "../components/ArticleItem";
 import Button from "../components/shared/Button";
 import MainTitle from "../components/shared/MainTitle";
-import { actGetListPostByIdCategoryAsync } from "../store/postsCategory/action";
+import { actGetListPostByIdCategoryAsync } from "../store/posts/action";
 
 function Categories() {
   let { id: idCategory } = useParams();
+
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,17 +25,17 @@ function Categories() {
     list: data,
     totalItems,
     totalPages,
-    currentPage,
-  } = useSelector((state) => state.postsCategory.listPost);
-
-  const hideButton = currentPage === totalPages;
+    currentPageCategory,
+  } = useSelector((state) => state.postReducer.listPostByCategory);
+  const newData = useSelector((state) => state.postReducer.listPostByCategory);
+  const hideButton = currentPageCategory === totalPages;
   function handleLoadMore() {
     setLoading(true);
     if (!hideButton) {
       dispatch(
         actGetListPostByIdCategoryAsync({
           per_page: 3,
-          page: currentPage + 1,
+          page: currentPageCategory + 1,
           categories: idCategory,
         })
       ).then(() => {

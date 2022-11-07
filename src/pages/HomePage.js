@@ -13,10 +13,8 @@ function HomePage() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(actGetPostLatestAsync({ per_page: 3, page: 1 }));
-    dispatch(
-      actGetPostPopularAsync({ per_page: 4, page: 1, orderby: "post_views" })
-    );
-    dispatch(actGetPostGeneralAsync({ per_page: 4, page: 1 }));
+    dispatch(actGetPostPopularAsync({ per_page: 4, page: 1 }));
+    dispatch(actGetPostGeneralAsync({ per_page: 2, page: 2 }));
   }, [dispatch]);
   return (
     <>
