@@ -13,27 +13,28 @@ function PostDetailPage() {
     dispatch(actGetPostDetailAsync(slug));
   }, [dispatch, slug]);
   const data = useSelector((state) => state.postDetailReducer.data[0]);
+
   if (!data) return null;
   return (
     <main className="post-detail">
       <div className="spacing" />
       <PostDetailHead
-        title={data.title.rendered}
+        title={data.title}
         date={data.date}
-        commentCount={data.comment_count}
-        author={data.author_data.nickname}
-        viewCount={data.view_count}
+        commentCount={data.commentCount}
+        author={data.author.nickname}
+        viewCount={data.viewCount}
       />
       <div className="spacing" />
       <div className="post-detail__fluid">
         <div className="tcl-container">
           <div className="post-detail__wrapper">
             <PostDetailContent
-              thumb={data.featured_media_url}
-              content={data.content.rendered}
-              listCategory={data.categories}
+              thumb={data.thumb}
+              content={data.contentPage}
+              listCategory={data.categoryList}
             />
-            <PostDetailSidebar authorId={data.author} />
+            <PostDetailSidebar authorId={data.authorId} />
           </div>
         </div>
       </div>

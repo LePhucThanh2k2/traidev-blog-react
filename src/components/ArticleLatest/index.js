@@ -10,19 +10,45 @@ function ArticleLatest() {
       <div className="tcl-container" data-aos="fade-right">
         <MainTitle>Article Latest</MainTitle>
 
-        <div className="latest-news__list spacing">
-          {dataPost.map((item, index) => {
-            return (
-              <div
-                className="latest-news__card"
-                key={index}
-                data-aos="fade-up"
-                data-aos-easing="ease-in-out"
-              >
-                <ArticleItem data={item} />
+        <div className="popular-news__list spacing">
+          <div className="popular-news__list--left" data-aos="fade-right">
+            <div className="popular-news__list--row">
+              {/* Popular news card */}
+              <div className="popular-news__list--card">
+                <ArticleItem
+                  isStyleCard
+                  isShowCategories
+                  isShowDesc
+                  data={dataPost[0]}
+                />
               </div>
-            );
-          })}
+              {/* End Popular news card */}
+              {/* Popular news card */}
+              <div className="popular-news__list--card">
+                <ArticleItem
+                  isStyleCard
+                  isShowCategories
+                  isShowDesc
+                  data={dataPost[1]}
+                />
+              </div>
+              {/* End Popular news card */}
+            </div>
+          </div>
+          <div className="popular-news__list--right">
+            <div className="popular-news__list--row">
+              {/* Popular news card */}
+              <div className="popular-news__list--card" data-aos="fade-left">
+                <ArticleItem
+                  isStyleCard
+                  isStyleRow
+                  isShowDesc
+                  data={dataPost[2]}
+                />
+              </div>
+              {/* End Popular news card */}
+            </div>
+          </div>
         </div>
       </div>
     </div>

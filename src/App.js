@@ -18,9 +18,10 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actGetListCategoryAsync({ per_page: 100, page: 1 }));
     dispatch(actGetMainMenuAsync());
-    AOS.init({ duration: 700, once: true });
+    dispatch(actGetListCategoryAsync({ per_page: 100, page: 1 })).then(() => {
+      AOS.init({ duration: 800, once: true });
+    });
   }, [dispatch]);
 
   return (

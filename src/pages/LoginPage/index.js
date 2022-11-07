@@ -7,10 +7,11 @@ function LoginPage() {
     username: "",
     password: "",
   });
-  const [textNotification, setTextNotification] = useState({
-    username: "",
-    password: "",
-  });
+  const [textNotificationForUsername, setTextNotificationForUsername] =
+    useState(null);
+  const [textNotificationForPassword, setTextNotificationForPassword] =
+    useState(null);
+
   function handleChange(e) {
     const value = e.target.value;
     const name = e.target.name;
@@ -19,24 +20,29 @@ function LoginPage() {
       [name]: value,
     });
   }
-  console.log(textNotification);
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (true) {
-      setTextNotification({
-        ...textNotification,
-        username: "Please enter username above 6 characters ",
-      });
+    setTextNotificationForUsername(null);
+    setTextNotificationForPassword(null);
+    if (infoUser.username.length < 6) {
+      setTextNotificationForUsername(
+        "Please enter username above 6 characters"
+      );
     }
-    if (true) {
-      setTextNotification({
-        ...textNotification,
-        password: "Please enter password above 6 characters ",
-      });
+    if (infoUser.password.length < 6) {
+      setTextNotificationForPassword(
+        "Please enter password above 6 characters"
+      );
     }
   }
-
+  function handleClickForm() {
+    if (infoUser.username.length < 6) {
+      setTextNotificationForUsername(
+        "Please enter username above 6 characters"
+      );
+    }
+  }
   return (
     <main className="login">
       <div className="spacing" />
@@ -49,7 +55,7 @@ function LoginPage() {
                 <Input
                   name="username"
                   value={infoUser.username}
-                  textNotification={textNotification.username}
+                  textNotification={textNotificationForUsername}
                   label="Username"
                   placeholder="Enter Username ..."
                   type="text"
@@ -58,12 +64,13 @@ function LoginPage() {
                 <Input
                   name="password"
                   value={infoUser.password}
-                  textNotification={textNotification.password}
+                  textNotification={textNotificationForPassword}
                   label="Password"
                   placeholder="Enter Password ..."
                   type="password"
                   icon={<i className="toggle-password ion-eye" />}
                   onChange={handleChange}
+                  onClick={handleClickForm}
                 />
 
                 <div className="d-flex tcl-jc-between tcl-ais-center">

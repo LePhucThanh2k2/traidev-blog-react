@@ -14,14 +14,14 @@ function HomePage() {
   useEffect(() => {
     dispatch(actGetPostLatestAsync({ per_page: 3, page: 1 }));
     dispatch(
-      actGetPostPopularAsync({ per_page: 3, page: 2, orderby: "post_views" })
+      actGetPostPopularAsync({ per_page: 4, page: 1, orderby: "post_views" })
     );
     dispatch(actGetPostGeneralAsync({ per_page: 4, page: 1 }));
   }, [dispatch]);
   return (
     <>
-      <ArticleLatest />
       <ArticlePopular />
+      <ArticleLatest />
       <ArticleGeneral />
     </>
   );

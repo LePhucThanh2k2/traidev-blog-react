@@ -1,13 +1,44 @@
 import { useSelector } from "react-redux";
 import ArticleItem from "../ArticleItem";
 import "./popular-news-list.css";
-
+import Slider from "react-slick";
+import "../../../node_modules/slick-carousel/slick/slick.css";
+import "../../../node_modules/slick-carousel/slick/slick-theme.css";
 function ArticlePopular() {
   const dataPost = useSelector((state) => state.postReducer.listPostPopular);
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+  };
+
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div className={"btn-arrow next"} onClick={onClick}>
+        {" "}
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
+    );
+  }
+
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div className={"btn-arrow pre"} onClick={onClick}>
+        {" "}
+        <i class="fa-solid fa-angle-left"></i>
+      </div>
+    );
+  }
 
   return (
     <div className="popular-news section bg-white-blue">
-      <div className="tcl-container">
+      <div className="tcl-container" id="slider">
         {/* Main Title */}
         <div
           className="main-title spacing d-flex tcl-jc-between tcl-ais-center"
@@ -20,46 +51,20 @@ function ArticlePopular() {
         </div>
         {/* End Main Title */}
         {dataPost.length > 0 && (
-          <div className="popular-news__list spacing">
-            <div className="popular-news__list--left" data-aos="fade-right">
-              <div className="popular-news__list--row">
-                {/* Popular news card */}
-                <div className="popular-news__list--card">
-                  <ArticleItem
-                    isStyleCard
-                    isShowCategories
-                    isShowDesc
-                    data={dataPost[0]}
-                  />
+          <Slider {...settings}>
+            {dataPost.map((item, index) => {
+              return (
+                <div
+                  className="latest-news__card"
+                  key={index}
+                  data-aos="fade-up"
+                  data-aos-easing="ease-in-out"
+                >
+                  <ArticleItem data={item} />
                 </div>
-                {/* End Popular news card */}
-                {/* Popular news card */}
-                <div className="popular-news__list--card">
-                  <ArticleItem
-                    isStyleCard
-                    isShowCategories
-                    isShowDesc
-                    data={dataPost[1]}
-                  />
-                </div>
-                {/* End Popular news card */}
-              </div>
-            </div>
-            <div className="popular-news__list--right">
-              <div className="popular-news__list--row">
-                {/* Popular news card */}
-                <div className="popular-news__list--card" data-aos="fade-left">
-                  <ArticleItem
-                    isStyleCard
-                    isStyleRow
-                    isShowDesc
-                    data={dataPost[2]}
-                  />
-                </div>
-                {/* End Popular news card */}
-              </div>
-            </div>
-          </div>
+              );
+            })}
+          </Slider>
         )}
       </div>
     </div>

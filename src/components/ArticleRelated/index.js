@@ -4,11 +4,11 @@ function ArticleRelated({ data }) {
   return (
     <article className="related-post__card" data-aos="fade-left">
       <a href="/#" className="related-post__title">
-        {data.title.rendered}
+        {data.title}
       </a>
       <div className="related-post__info">
         <a className="related-post__author" href="/#">
-          {data.author_data.nickname}
+          {data.author.nickname}
         </a>
         <p className="related-post__date">
           <svg

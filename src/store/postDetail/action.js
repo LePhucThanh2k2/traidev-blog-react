@@ -1,3 +1,4 @@
+import mappingPostData from "../../helper/mappingPostData";
 import postService from "../../services/post";
 export const GET_POST_DETAIL = "GET_POST_DETAIL ";
 export function actGetPostDetail(data) {
@@ -7,7 +8,7 @@ export function actGetPostDetail(data) {
 export function actGetPostDetailAsync({ slug }) {
   return async (dispatch) => {
     const response = await postService.getList({ slug });
-    const posts = response.data;
+    const posts = response.data.map(mappingPostData);
     dispatch(actGetPostDetail(posts));
   };
 }

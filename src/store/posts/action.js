@@ -21,6 +21,7 @@ export function actGetPostGeneral(post, totalPages) {
 export function actGetPostLatestAsync({ per_page, page }) {
   return async (dispatch) => {
     const response = await postService.getList({ per_page, page });
+    console.log(response.data);
     const posts = response.data.map(mappingPostData);
     dispatch(actGetPostLatest(posts));
   };

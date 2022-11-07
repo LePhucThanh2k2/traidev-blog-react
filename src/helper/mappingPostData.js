@@ -8,6 +8,10 @@ function mappingPostData(item) {
     shortDesc: item.excerpt.rendered,
     author: item.author_data,
     categoryList: item.categories,
+    commentCount: item.comment_count,
+    viewCount: item.view_count,
+    contentPage: item.content.rendered,
+    authorId: item.author,
   };
 }
 
