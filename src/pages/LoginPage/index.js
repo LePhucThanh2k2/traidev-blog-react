@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Input from "../../components/shared/Input";
+import { handleFormValidation } from "../../helper";
 import "./main.css";
+
 function LoginPage() {
-  // const [infoUser, setInfoUser] = useState({
-  //   username: "",
-  //   password: "",
-  // });
   const [formData, setFormData] = useState({
     username: {
       value: "",
@@ -18,54 +16,22 @@ function LoginPage() {
     },
   });
 
-  // const [textNotificationForUsername, setTextNotificationForUsername] =
-  //   useState(null);
-  // const [textNotificationForPassword, setTextNotificationForPassword] =
-  //   useState(null);
-
   function handleChange(e) {
     const value = e.target.value;
     const name = e.target.name;
-
-    let error = "";
-    if (name === "username") {
-      if (value === "") {
-        error = "username not empty";
-      } else if (value.length < 6) {
-        error = "Please enter username above 6 characters";
-      }
-    }
     setFormData({
       ...formData,
       [name]: {
         value: value,
-        error: error,
+        error: handleFormValidation({ value, name }),
       },
     });
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    // setTextNotificationForUsername(null);
-    // setTextNotificationForPassword(null);
-    // if (infoUser.username.length < 6) {
-    //   setTextNotificationForUsername(
-    //     "Please enter username above 6 characters"
-    //   );
-    // }
-    // if (infoUser.password.length < 6) {
-    //   setTextNotificationForPassword(
-    //     "Please enter password above 6 characters"
-    //   );
-    // }
   }
-  // function handleClickForm() {
-  //   if (infoUser.username.length < 6) {
-  //     setTextNotificationForUsername(
-  //       "Please enter username above 6 characters"
-  //     );
-  //   }
-  // }
+
   return (
     <main className="login">
       <div className="spacing" />
@@ -87,7 +53,7 @@ function LoginPage() {
                 <Input
                   name="password"
                   value={formData.password.value}
-                  textNotification={""}
+                  textNotification={formData.password.error}
                   label="Password"
                   placeholder="Enter Password ..."
                   type="password"

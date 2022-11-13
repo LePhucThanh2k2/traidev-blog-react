@@ -33,3 +33,22 @@ export function mappingPostDetailData(item) {
     authorId: item.author,
   };
 }
+
+export function handleFormValidation(params) {
+  const { name, value, formData } = params;
+  let error = "";
+  if (name) {
+    if (value === "") {
+      error = `${name} not empty`;
+    } else if (value.length < 6) {
+      error = ` Please enter ${name} above 6 characters`;
+    }
+  }
+  if (name === "confirmPassword") {
+    if (value !== formData.password.value) {
+      error = `Password and Password confirm must match`;
+    }
+  }
+
+  return error;
+}

@@ -21,7 +21,7 @@ function Input({
     }
   }
 
-  const classesIconPwd = cls("toggle-password", {
+  const classesIcon = cls("toggle-password", {
     "ion-eye": localType === "password",
     "ion-eye-disabled": localType === "text",
   });
@@ -39,10 +39,12 @@ function Input({
   return (
     <div className="form-control">
       {label && <label>{label}</label>}
-      {type === "password" && (
-        <i className={classesIconPwd} onClick={handleToggleShowPwd}></i>
-      )}
-      <input type={localType} className={className} {...restProps} />
+      <div className="group-form">
+        <input type={localType} className={className} {...restProps} />
+        {type === "password" && (
+          <i className={classesIcon} onClick={handleToggleShowPwd}></i>
+        )}
+      </div>
       {textNotification && (
         <span className="notification">
           <i className="fa-solid fa-circle-exclamation"></i>

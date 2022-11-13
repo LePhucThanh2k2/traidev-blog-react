@@ -28,6 +28,7 @@ body {
 }
 
 .wrapper-content {
+  /* background-color: #000; */
   margin: 0;
   min-width: 0;
   -webkit-flex-direction: column;
@@ -140,18 +141,27 @@ body {
 .slick-arrow.slick-next {
 } */
 .btn-arrow {
-  background-color: #ccc;
+  background-color: rgb(233, 232, 232);
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  color: #fff;
+  color: rgb(175, 175, 175);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  border: #ccc solid 1px;
 }
 .btn-arrow i {
   font-size: 30px;
+}
+.btn-arrow {
+  transition: all ease 0.25s;
+}
+.btn-arrow:hover {
+  border: 2px #ffff solid;
+  color: #fff;
+  background: rgba(51, 51, 51, 0.676);
 }
 .btn-arrow.pre {
   position: absolute;
@@ -165,4 +175,49 @@ body {
   right: 0;
   transform: translate(40%, -50%);
   z-index: 1;
+}
+.group-form {
+  position: relative;
+}
+
+.slick-slide.slick-active + :not(.slick-active) {
+  opacity: 0;
+  transform: scale(0.75);
+}
+.slick-slide {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 600ms ease;
+}
+.slick-slider.slick-initialized > .slick-dots {
+  position: absolute;
+  max-width: 120px;
+  top: 0;
+  right: 0;
+  height: 25px;
+  transform: translateY(-100%);
+  display: flex !important;
+  flex-wrap: nowrap;
+}
+ul.slick-dots li button:before {
+  width: 15px;
+  height: 15px;
+  content: "";
+  background-color: rgb(50, 49, 49);
+  border-radius: 50%;
+}
+
+.fade-up:hover {
+  transform: translateY(-2%);
+}
+.latest-news__card.fade-up {
+  transition: all ease 0.5s;
+  padding-top: 20px;
+}
+.latest-news__card.fade-up .article-item {
+  transition: all ease 0.5s;
+  box-shadow: rgba(52, 48, 58, 0.553) 1px 1px 5px 0px;
+}
+.latest-news__card.fade-up .article-item:hover {
+  box-shadow: rgba(52, 48, 58, 0.553) 0 5px 10px 0;
 }

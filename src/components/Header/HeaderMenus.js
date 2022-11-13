@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -17,11 +18,16 @@ function renderMenuLevel(item) {
 }
 
 function HeaderMenus() {
+  const [toggleMenu, setToggleMenu] = useState(false);
+
   const dataMenu = useSelector((state) => state.menuReducer.listMenu);
+  function handleToggleMenu() {
+    setToggleMenu(!toggleMenu);
+  }
   return (
     <div className="tcl-col-6">
-      {/* Nav */}
-      <div className="header-nav">
+      {/* Main - Menu */}
+      <div className="header-nav" id="main-menu">
         <ul className="header-nav__lists">{dataMenu.map(renderMenuLevel)}</ul>
         <ul className="header-nav__lists">
           <li className="user">
@@ -31,8 +37,36 @@ function HeaderMenus() {
           </li>
         </ul>
       </div>
+
+      {/* Mobile - Menu */}
+      <div className="header-nav" id="mobile-menu">
+        <ul className="header-nav__lists">
+          <li className="user">
+            <i className="fa-solid fa-sun"></i>
+          </li>
+          <li className="user">
+            <i className="fa-solid fa-magnifying-glass"></i>
+          </li>
+          <li className="user" onClick={handleToggleMenu}>
+            <i className="fa-solid fa-bars"></i>
+          </li>
+        </ul>
+      </div>
+
+      {/* Container Of Mobile Menu */}
+
+      <div
+        className={`container-mobile-menu ${toggleMenu ? "active" : ""}`}
+        onClick={handleToggleMenu}
+      >
+        <div className="close-menu" onClick={handleToggleMenu}>
+          <i className="fa-solid fa-xmark"></i>
+        </div>
+        <div className="mobile-menu_list">
+          <ul className="mobile-menu-item">{dataMenu.map(renderMenuLevel)}</ul>
+        </div>
+      </div>
     </div>
   );
 }
-
 export default HeaderMenus;

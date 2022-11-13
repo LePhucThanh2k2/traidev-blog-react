@@ -27,7 +27,6 @@ function Categories() {
     totalPages,
     currentPageCategory,
   } = useSelector((state) => state.postReducer.listPostByCategory);
-  const newData = useSelector((state) => state.postReducer.listPostByCategory);
   const hideButton = currentPageCategory === totalPages;
   function handleLoadMore() {
     setLoading(true);
