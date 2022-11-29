@@ -1,4 +1,8 @@
-import { mappingPostData, mappingPostDetailData } from "../../helper";
+import {
+  mappingListComment,
+  mappingPostData,
+  mappingPostDetailData,
+} from "../../helper";
 import postService from "../../services/post";
 
 //==================================Action type============================================================
@@ -9,6 +13,7 @@ export const GET_POST_DETAIL = "GET_POST_DETAIL ";
 export const GET_POST_RELATED_BY_AUTHOR = "GET_POST_RELATED_BY_AUTHOR ";
 export const GET_LIST_POST_BY_ID_CATEGORY = "GET_LIST_POST_BY_ID_CATEGORY";
 export const GET_LIST_POST_BY_KEYWORD = "GET_LIST_POST_BY_KEYWORD";
+export const GET_LIST_COMMENT = "GET_LIST_COMMENT";
 //==================================Action Creator============================================================
 export function actGetPostLatest(posts) {
   return { type: GET_POST_LATEST, payload: { posts } };
@@ -44,6 +49,12 @@ export function actGetListPostByKeyword(posts, totalPages, totalItems, page) {
   return {
     type: GET_LIST_POST_BY_KEYWORD,
     payload: { posts, totalPages, totalItems, currentPage: page },
+  };
+}
+export function actGetComment(params) {
+  return {
+    type: GET_LIST_COMMENT,
+    payload: { ...params },
   };
 }
 
@@ -127,5 +138,19 @@ export function actGetListPostByKeywordAsync({ per_page, page, search }) {
     const totalItems = parseInt(response.headers["x-wp-total"]);
     const posts = response.data.map(mappingPostData);
     dispatch(actGetListPostByKeyword(posts, totalPages, totalItems, page));
+  };
+}
+export function actGetCommentAsync(params) {
+  return async (dispatch) => {
+    try {
+      const response = await postService.getCommentPostDetail({ ...params });
+      const listComment = response.data.map(mappingListComment);
+      dispatch(
+        actGetComment({ totalComment: listComment.length, data: listComment })
+      );
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, message: "List Comment NotFound" };
+    }
   };
 }

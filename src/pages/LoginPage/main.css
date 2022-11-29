@@ -73,3 +73,7 @@
   width: 15px;
   transform: translateY(-50%);
 }
+.alert {
+  color: red;
+  text-align: center;
+}

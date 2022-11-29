@@ -1,3 +1,5 @@
+import { formatRelativeDate } from "./day";
+
 export function handleHashCategoryById(items) {
   const objData = {};
   for (let i = 0; i < items.length; i++) {
@@ -24,6 +26,7 @@ export function mappingPostData(item) {
     categoryList: item.categories,
   };
 }
+
 export function mappingPostDetailData(item) {
   return {
     ...mappingPostData(item),
@@ -31,6 +34,15 @@ export function mappingPostDetailData(item) {
     viewCount: item.view_count,
     contentPage: item.content.rendered,
     authorId: item.author,
+  };
+}
+
+export function mappingListComment(item) {
+  return {
+    totalCommentReply: item.comment_reply_count,
+    author: item.author_data,
+    content: item.content.rendered,
+    date: formatRelativeDate(item.date).dateRelative,
   };
 }
 
@@ -44,11 +56,11 @@ export function handleFormValidation(params) {
       error = ` Please enter ${name} above 6 characters`;
     }
   }
-  if (name === "confirmPassword") {
-    if (value !== formData.password.value) {
-      error = `Password and Password confirm must match`;
-    }
-  }
+  // if (name === "confirmPassword") {
+  //   if (value !== formData.password.value) {
+  //     error = `Password and Password confirm must match`;
+  //   }
+  // }
 
   return error;
 }

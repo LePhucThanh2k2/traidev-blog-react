@@ -16,14 +16,12 @@ import AOS from "../node_modules/aos/dist/aos";
 import "../node_modules/aos/dist/aos.css";
 function App() {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(actGetMainMenuAsync());
     dispatch(actGetListCategoryAsync({ per_page: 100, page: 1 })).then(() => {
       AOS.init({ duration: 800, once: true });
     });
-  }, [dispatch]);
-
+  }, []);
   return (
     <Router>
       <div className="wrapper-content">

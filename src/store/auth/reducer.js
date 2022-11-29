@@ -1,15 +1,24 @@
-import { GET_MAIN_MENU } from "../menu/action";
+import { ACT_LOGIN, ACT_FETCH_ME } from "../auth/action";
 
 const initState = {
-  listMenu: [],
+  infoLogin: {},
+  infoAuthor: {},
 };
-function menuReducer(state = initState, action) {
+function infoAuthorReducer(state = initState, action) {
   switch (action.type) {
-    case GET_MAIN_MENU:
-      return { ...state, listMenu: action.payload.post };
+    case ACT_LOGIN:
+      return {
+        ...state,
+        infoLogin: action.payload.data,
+      };
+    case ACT_FETCH_ME:
+      return {
+        ...state,
+        infoAuthor: action.payload.data,
+      };
 
     default:
       return state;
   }
 }
-export default menuReducer;
+export default infoAuthorReducer;

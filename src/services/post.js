@@ -18,5 +18,15 @@ const postService = {
   getListPostBySearch: (params) => {
     return postService.getList({ ...params });
   },
+  getCommentPostDetail: (params) => {
+    return api.get(`/wp/v2/comments`, {
+      params: {
+        per_page: 3,
+        page: 1,
+        parent: 0,
+        ...params,
+      },
+    });
+  },
 };
 export default postService;

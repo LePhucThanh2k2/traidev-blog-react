@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Input from "../../components/shared/Input";
 import { handleFormValidation } from "../../helper";
 import { actLoginAsync } from "../../store/auth/action";
@@ -8,8 +8,14 @@ import "./main.css";
 
 function LoginPage() {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const token = JSON.parse(window.localStorage.getItem("token"));
+  // Check loggedIn
+  if (token) {
+    history.push("/");
+  }
   const [formError, setFormError] = useState("");
-  const [isFormDirty, setIsFormDirty] = useState(false);
+  const [isDirtyForm, setIsDirtyForm] = useState(false);
   const [formData, setFormData] = useState({
     username: {
       value: "",
@@ -21,6 +27,7 @@ function LoginPage() {
     },
   });
 
+  // HANDLE EVENT
   function handleChange(e) {
     const value = e.target.value;
     const name = e.target.name;
@@ -31,11 +38,11 @@ function LoginPage() {
         error: handleFormValidation({ value, name }),
       },
     });
-    setIsFormDirty(true);
+    setIsDirtyForm(true);
   }
 
   function checkFormIsValid() {
-    if (!isFormDirty) {
+    if (!isDirtyForm) {
       setFormData({
         username: {
           value: "",
@@ -80,7 +87,7 @@ function LoginPage() {
         actLoginAsync(formData.username.value, formData.password.value)
       ).then((res) => {
         if (res.ok) {
-          // TOdo
+          history.push("/");
         } else {
           setFormError(res.message);
         }
@@ -97,7 +104,7 @@ function LoginPage() {
         <div className="tcl-row">
           <div className="tcl-col-12 tcl-col-sm-6 block-center">
             <h1 className="form-title text-center">Login</h1>
-            <h1>{formError}</h1>
+            <h2 className="alert">{formError}</h2>
             <div className="form-login-register">
               <form onSubmit={handleSubmit}>
                 <Input
@@ -118,7 +125,6 @@ function LoginPage() {
                   type="password"
                   icon={<i className="toggle-password ion-eye" />}
                   onChange={handleChange}
-                  // onClick={handleClickForm}
                 />
 
                 <div className="d-flex tcl-jc-between tcl-ais-center">

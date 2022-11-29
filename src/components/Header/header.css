@@ -172,6 +172,9 @@
 .header-search {
   display: flex;
 }
+.container-mobile-menu {
+  display: none;
+}
 @media screen and (max-width: 768px) {
   .header-search {
     display: none;
@@ -198,6 +201,7 @@
   }
   /* Mobile Menu - START */
   .container-mobile-menu {
+    display: block;
     position: fixed;
     background-color: rgba(132, 132, 132, 0.605);
     top: 0;

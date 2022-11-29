@@ -6,6 +6,7 @@ import {
   GET_POST_RELATED_BY_AUTHOR,
   GET_LIST_POST_BY_ID_CATEGORY,
   GET_LIST_POST_BY_KEYWORD,
+  GET_LIST_COMMENT,
 } from "./action";
 
 const initState = {
@@ -16,6 +17,7 @@ const initState = {
   listPostRelated: [],
   listPostByCategory: { list: [], currentPageCategory: 1 },
   listPostBySearch: [],
+  dataComment: { listComment: [], totalComment: 0 },
 };
 function postReducer(state = initState, action) {
   switch (action.type) {
@@ -67,7 +69,14 @@ function postReducer(state = initState, action) {
           currentPageSearch: action.payload.currentPage,
         },
       };
-
+    case GET_LIST_COMMENT:
+      return {
+        ...state,
+        dataComment: {
+          listComment: action.payload.data,
+          totalComment: action.payload.totalComment,
+        },
+      };
     default:
       return state;
   }
