@@ -3,10 +3,12 @@ import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Input from "../components/shared/Input";
 import { handleFormValidation } from "../helper";
+import { useNotAuthenticated } from "../hook/useNotAuthenticated";
 import { actRegisterAsync } from "../store/auth/action";
-
 import "./LoginPage/main.css";
+
 function RegisterPage() {
+  useNotAuthenticated();
   const history = useHistory();
   const dispatch = useDispatch();
   const [formError, setFormError] = useState("");

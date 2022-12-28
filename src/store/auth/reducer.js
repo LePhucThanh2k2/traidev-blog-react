@@ -1,8 +1,9 @@
-import { ACT_LOGIN, ACT_FETCH_ME } from "../auth/action";
+import { ACT_LOGIN, ACT_FETCH_ME, ACT_LOGIN_SUCCESS } from "../auth/action";
 
 const initState = {
-  infoLogin: {},
-  infoAuthor: {},
+  infoLogin: null,
+  infoAuthor: null,
+  token: "",
 };
 function infoAuthorReducer(state = initState, action) {
   switch (action.type) {
@@ -16,9 +17,22 @@ function infoAuthorReducer(state = initState, action) {
         ...state,
         infoAuthor: action.payload.data,
       };
+    case "ACT_LOGOUT":
+      return {
+        ...state,
+        token: "",
+        infoAuthor: null,
+      };
+    case ACT_LOGIN_SUCCESS:
+      return {
+        ...state,
+        token: action.payload.token,
+        infoAuthor: action.payload.user,
+      };
 
     default:
       return state;
   }
 }
+
 export default infoAuthorReducer;

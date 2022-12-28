@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
   postReducer,
   categoryReducer,
   menuReducer,
-  infoAuthorReducer,
+  infoAuthorReducer, //authReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

@@ -4,20 +4,25 @@ import { Link, useHistory } from "react-router-dom";
 import Input from "../../components/shared/Input";
 import { handleFormValidation } from "../../helper";
 import { useNotAuthenticated } from "../../hook/useNotAuthenticated";
-import { actLoginAsync } from "../../store/auth/action";
+import { actChangePasswordAsync, actLoginAsync } from "../../store/auth/action";
 import "./main.css";
-function LoginPage() {
+function ChangePassword() {
   useNotAuthenticated();
   const dispatch = useDispatch();
   const history = useHistory();
+  const token = localStorage.getItem("token");
   const [formError, setFormError] = useState("");
   const [isDirtyForm, setIsDirtyForm] = useState(false);
   const [formData, setFormData] = useState({
-    username: {
+    password: {
       value: "",
       error: "",
     },
-    password: {
+    newPassword: {
+      value: "",
+      error: "",
+    },
+    confirmNewPassword: {
       value: "",
       error: "",
     },
@@ -40,56 +45,35 @@ function LoginPage() {
   function checkFormIsValid() {
     if (!isDirtyForm) {
       setFormData({
-        username: {
-          value: "",
-          error: handleFormValidation({ value: "", name: "username" }),
-        },
         password: {
           value: "",
           error: handleFormValidation({ value: "", name: "password" }),
         },
+        newPassword: {
+          value: "",
+          error: handleFormValidation({ value: "", name: "password" }),
+        },
+        confirmNewPassword: {
+          value: "",
+          error: handleFormValidation({ value: "", name: "confirmPassword" }),
+        },
       });
       return false;
-    } else {
-      if (formData.username.value === "") {
-        setFormData({
-          ...formData,
-          username: {
-            value: "",
-            error: handleFormValidation({ value: "", name: "username" }),
-          },
-        });
-        return false;
-      }
-      if (formData.password.value === "") {
-        setFormData({
-          ...formData,
-          password: {
-            value: "",
-            error: handleFormValidation({ value: "", name: "password" }),
-          },
-        });
-        return false;
-      }
-      return true;
     }
+    return true;
   }
 
   function handleSubmit(e) {
     e.preventDefault();
+    const password = formData.password.value;
+    const newPassword = formData.newPassword.value;
+    const confirmPassword = formData.confirmNewPassword.value;
     const isValidate = checkFormIsValid();
     if (isValidate) {
       dispatch(
-        actLoginAsync(formData.username.value, formData.password.value)
-      ).then((res) => {
-        if (res.ok) {
-          history.push("/");
-        } else {
-          setFormError(res.message);
-        }
-      });
-    } else {
-      return;
+        actChangePasswordAsync(token, password, newPassword, confirmPassword)
+      );
+      console.log("Success", formData);
     }
   }
 
@@ -99,19 +83,10 @@ function LoginPage() {
       <div className="tcl-container">
         <div className="tcl-row">
           <div className="tcl-col-12 tcl-col-sm-6 block-center">
-            <h1 className="form-title text-center">Login</h1>
+            <h1 className="form-title text-center">Change Password</h1>
             <h2 className="alert">{formError}</h2>
             <div className="form-login-register">
               <form onSubmit={handleSubmit}>
-                <Input
-                  name="username"
-                  value={formData.username.value}
-                  textNotification={formData.username.error}
-                  label="Username"
-                  placeholder="Enter Username ..."
-                  type="text"
-                  onChange={handleChange}
-                />
                 <Input
                   name="password"
                   value={formData.password.value}
@@ -122,12 +97,34 @@ function LoginPage() {
                   icon={<i className="toggle-password ion-eye" />}
                   onChange={handleChange}
                 />
+                <Input
+                  name="newPassword"
+                  value={formData.newPassword.value}
+                  textNotification={formData.newPassword.error}
+                  label="newPassword"
+                  placeholder="Enter newPassword ..."
+                  type="password"
+                  icon={<i className="toggle-password ion-eye" />}
+                  onChange={handleChange}
+                />
+                <Input
+                  name="confirmNewPassword"
+                  value={formData.confirmNewPassword.value}
+                  textNotification={formData.confirmNewPassword.error}
+                  label="confirmNewPassword"
+                  placeholder="Enter confirmNewPassword ..."
+                  type="password"
+                  icon={<i className="toggle-password ion-eye" />}
+                  onChange={handleChange}
+                />
 
                 <div className="d-flex tcl-jc-between tcl-ais-center">
-                  <button className="btn btn-primary btn-size-large">
+                  <button
+                    className="btn btn-primary btn-size-large"
+                    onClick={handleSubmit}
+                  >
                     Submit
                   </button>
-                  <Link to="/register">Register</Link>
                 </div>
               </form>
             </div>
@@ -138,4 +135,4 @@ function LoginPage() {
     </main>
   );
 }
-export default LoginPage;
+export default ChangePassword;

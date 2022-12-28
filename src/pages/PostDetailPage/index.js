@@ -23,7 +23,7 @@ function PostDetailPage() {
         setStatus("error");
       }
     });
-  }, []);
+  }, [dispatch, slug]);
 
   if (status === "error") {
     return (

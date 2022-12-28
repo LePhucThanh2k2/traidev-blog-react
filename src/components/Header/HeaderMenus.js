@@ -1,8 +1,7 @@
-import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { actFetchMeAsync } from "../../store/auth/action";
+import { actLogout } from "../../store/auth/action";
 
 function renderMenuLevel(item) {
   let isHasChilds = false;
@@ -19,49 +18,43 @@ function renderMenuLevel(item) {
   );
 }
 function HeaderMenus() {
-  let usernameDefault = "Tài Khoản";
-  const token = JSON.parse(window.localStorage.getItem("token"));
+  // let usernameDefault = "Tài Khoản";
+
   const dispatch = useDispatch();
 
-  const [user, setUser] = useState({
-    username: usernameDefault,
-  });
+  // const [user, setUser] = useState({
+  //   username: usernameDefault,
+  // });
 
   const [toggleMenu, setToggleMenu] = useState(false);
   const dataMenu = useSelector((state) => state.menuReducer.listMenu);
   const infoAuthor = useSelector((state) => state.infoAuthorReducer.infoAuthor);
 
   // Display username after when login
-  useEffect(() => {
-    if (infoAuthor.nickname) {
-      setUser({
-        username: infoAuthor.nickname,
-      });
-    }
-    // Check Invalid Token
-    dispatch(actFetchMeAsync(token)).then((res) => {
-      if (!res.ok) {
-        handleLogout();
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   if (infoAuthor.nickname) {
+  //     setUser({
+  //       username: infoAuthor.nickname,
+  //     });
+  //   }
+  //   // Check Invalid Token
+
+  // }, []);
   // Display username when refresh page
-  useEffect(() => {
-    setUser({
-      username: infoAuthor.nickname,
-    });
-  }, [infoAuthor]);
+  // useEffect(() => {
+  //   setUser({
+  //     username: infoAuthor.nickname,
+  //   });
+  // }, [infoAuthor]);
 
   function handleToggleMenu() {
     setToggleMenu(!toggleMenu);
   }
   function handleLogout() {
-    window.localStorage.removeItem("token");
-    setUser({
-      username: usernameDefault,
-    });
+    dispatch(actLogout());
+    localStorage.removeItem("token");
   }
-
+  function handleUpdateProfile() {}
   return (
     <div className="tcl-col-6">
       {/* Main - Menu */}
@@ -69,15 +62,12 @@ function HeaderMenus() {
         <ul className="header-nav__lists">{dataMenu.map(renderMenuLevel)}</ul>
         <ul className="header-nav__lists">
           <li className="user">
-            <Link
-              to={`${
-                user.username === usernameDefault ? "/login" : "/dashboard"
-              }`}
-            >
-              <i className="icons ion-person" /> {user.username}
+            <Link to={`${"/login"}`}>
+              <i className="icons ion-person" />{" "}
+              {!infoAuthor ? "Tài khoản" : infoAuthor.nickname}
             </Link>
             {/* Not Login */}
-            {user.username === usernameDefault && (
+            {/* {user.username === usernameDefault && (
               <ul>
                 <li>
                   <Link to="/login">Login</Link>
@@ -86,12 +76,18 @@ function HeaderMenus() {
                   <Link to="/register">Register</Link>
                 </li>
               </ul>
-            )}
+            )} */}
             {/* Have Been Login */}
-            {user.username !== usernameDefault && (
+            {infoAuthor && (
               <ul>
                 <li onClick={handleLogout}>
                   <Link to="/">Logout</Link>
+                </li>
+                <li>
+                  <Link to="/changePassword">Change Password</Link>
+                </li>
+                <li>
+                  <Link to="/updateProfile">Update Profile</Link>
                 </li>
               </ul>
             )}

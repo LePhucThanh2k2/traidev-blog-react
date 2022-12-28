@@ -7,6 +7,7 @@ import {
   GET_LIST_POST_BY_ID_CATEGORY,
   GET_LIST_POST_BY_KEYWORD,
   GET_LIST_COMMENT,
+  GET_LIST_CHILD_COMMENT,
 } from "./action";
 
 const initState = {
@@ -17,7 +18,13 @@ const initState = {
   listPostRelated: [],
   listPostByCategory: { list: [], currentPageCategory: 1 },
   listPostBySearch: [],
-  dataComment: { listComment: [], totalComment: 0 },
+  dataComment: {
+    currentPage: 1,
+    listComment: [],
+    totalComment: 0,
+    totalPages: 0,
+  },
+  listChildComment: {},
 };
 function postReducer(state = initState, action) {
   switch (action.type) {
@@ -32,6 +39,22 @@ function postReducer(state = initState, action) {
           ...state.listPostGeneral,
           list: [...state.listPostGeneral.list, ...action.payload.posts],
           totalPages: action.payload.totalPages,
+        },
+      };
+    case GET_LIST_POST_BY_KEYWORD:
+      const currentPageSearch = action.payload.currentPage;
+      return {
+        ...state,
+        listPostBySearch: {
+          ...state.listPostBySearch,
+
+          list:
+            currentPageSearch < 2
+              ? [...action.payload.posts]
+              : [...state.listPostBySearch.list, ...action.payload.posts],
+          totalPages: action.payload.totalPages,
+          totalItems: action.payload.totalItems,
+          currentPageSearch: action.payload.currentPage,
         },
       };
     case GET_POST_DETAIL:
@@ -53,28 +76,38 @@ function postReducer(state = initState, action) {
           currentPageCategory: action.payload.currentPage,
         },
       };
-    case GET_LIST_POST_BY_KEYWORD:
-      const currentPageSearch = action.payload.currentPage;
-      return {
-        ...state,
-        listPostBySearch: {
-          ...state.listPostBySearch,
 
-          list:
-            currentPageSearch < 2
-              ? [...action.payload.posts]
-              : [...state.listPostBySearch.list, ...action.payload.posts],
-          totalPages: action.payload.totalPages,
-          totalItems: action.payload.totalItems,
-          currentPageSearch: action.payload.currentPage,
-        },
-      };
     case GET_LIST_COMMENT:
       return {
         ...state,
         dataComment: {
-          listComment: action.payload.data,
-          totalComment: action.payload.totalComment,
+          listComment:
+            action.payload.currentPage === 1
+              ? action.payload.data
+              : [...state.dataComment.listComment, ...action.payload.data],
+          currentPage: action.payload.currentPage,
+          totalComment: parseInt(action.payload.totalComment),
+          totalPages: parseInt(action.payload.totalPages),
+        },
+      };
+    case GET_LIST_CHILD_COMMENT:
+      return {
+        ...state,
+        listChildComment: {
+          ...state.listChildComment,
+          [action.payload.parentId]: {
+            listComment:
+              action.payload.currentPage === 1
+                ? action.payload.data
+                : [
+                    ...state.listChildComment[action.payload.parentId]
+                      .listComment,
+                    ...action.payload.data,
+                  ],
+            currentPage: action.payload.currentPage,
+            totalComment: parseInt(action.payload.totalComment),
+            totalPages: parseInt(action.payload.totalPages),
+          },
         },
       };
     default:

@@ -21,9 +21,10 @@ const postService = {
   getCommentPostDetail: (params) => {
     return api.get(`/wp/v2/comments`, {
       params: {
-        per_page: 3,
+        per_page: 5,
         page: 1,
         parent: 0,
+        order: "asc",
         ...params,
       },
     });

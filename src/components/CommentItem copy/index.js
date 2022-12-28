@@ -10,31 +10,30 @@ function CommentItem({ item }) {
   const strMarkup = createMarkup(item.content);
   const dispatch = useDispatch();
   const idComment = item.id;
-  const dataChildComment = useSelector(
+  const data = useSelector(
     (state) => state.postReducer.listChildComment[idComment]
   );
-
-  console.log("dataChildComment", dataChildComment);
-  let currentPage = 0;
-  let totalPages = 0;
-  let listComment = [];
-  let totalComment = 0;
-  if (dataChildComment) {
-    currentPage = dataChildComment.currentPage;
-    totalPages = dataChildComment.totalPages;
-    listComment = [...dataChildComment.listComment];
-    totalComment = dataChildComment.currentPage;
-  }
-  let restComment = item.totalCommentReply - 3 * currentPage;
-  function handleLoadMore() {
+  const [hiddenListChildComment, setHiddenListChildComment] = useState(false);
+  const [listChildComment, setListChildComment] = useState([]);
+  const [currentPage, setCurrentPage] = useState(3);
+  useEffect(() => {
     dispatch(
       actGetListChildCommentAsync({
-        per_page: 3,
-        page: currentPage + 1,
+        per_page: currentPage,
+        page: 1,
         parent: idComment,
         post: idPostDetail,
+        order: "asc",
       })
     );
+  }, []);
+  // console.log("listChildComment", data);
+  function handleLoadMore() {
+    setListChildComment([...data]);
+    setCurrentPage(currentPage + 3);
+    if (item.totalCommentReply <= currentPage) {
+      setHiddenListChildComment(true);
+    }
   }
   return (
     <li className="item">
@@ -62,22 +61,24 @@ function CommentItem({ item }) {
       </div>
 
       {/* Reply Comments */}
-
-      {listComment.length > 0 && (
-        <ul className="comments">
-          {listComment.map((item) => (
-            <CommentItem key={item.id} item={item} />
-          ))}
-        </ul>
-      )}
-      {restComment > 0 && (
+      {item.totalCommentReply > 0 && !hiddenListChildComment && (
         <div className="comments__hidden">
           <p onClick={handleLoadMore}>
-            <i className="icons ion-ios-undo" /> Xem thêm {restComment} câu trả
-            lời
+            <i className="icons ion-ios-undo" /> Xem thêm{" "}
+            {item.totalCommentReply} câu trả lời
           </p>
         </div>
       )}
+      {/* {hiddenListChildComment && (
+        <>
+          <ul className="comments">
+            {listChildComment.map((item) => {
+              return commentItem(item);
+            })}
+          </ul>
+        </>
+      )} */}
+
       {/* Reply form */}
       {/* <div className="comments__form">
         <div className="comments__form--control">

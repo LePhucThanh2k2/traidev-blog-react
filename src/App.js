@@ -14,14 +14,18 @@ import backgroundPage404 from "./assets/images/page404.jpg";
 import PostCategoryPage from "./pages/PostCategoryPage";
 import AOS from "../node_modules/aos/dist/aos";
 import "../node_modules/aos/dist/aos.css";
+import { actFetchMeAsync } from "./store/auth/action";
+import ChangePassword from "./pages/ChangePassword";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(actFetchMeAsync());
+
     dispatch(actGetMainMenuAsync());
     dispatch(actGetListCategoryAsync({ per_page: 100, page: 1 })).then(() => {
       AOS.init({ duration: 800, once: true });
     });
-  }, []);
+  }, [dispatch]);
   return (
     <Router>
       <div className="wrapper-content">
@@ -35,6 +39,9 @@ function App() {
           </Route>
           <Route path="/register">
             <RegisterPage />
+          </Route>
+          <Route path="/changePassword">
+            <ChangePassword />
           </Route>
           <Route path="/search">
             <SearchPage />

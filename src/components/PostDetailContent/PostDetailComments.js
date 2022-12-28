@@ -7,11 +7,17 @@ import CommentItem from "../CommentItem";
 function PostDetailComments() {
   const dispatch = useDispatch();
   const idPostDetail = useSelector((state) => state.postReducer.postDetail.id);
-  const data = useSelector((state) => state.postReducer.dataComment);
-  useEffect(() => {
-    dispatch(actGetCommentAsync({ post: idPostDetail }));
-  }, []);
+  const { currentPage, listComment, totalComment, totalPages } = useSelector(
+    (state) => state.postReducer.dataComment
+  );
 
+  let restComment = totalComment - 5 * (currentPage - 1);
+
+  const hasMorePost = currentPage < totalPages;
+
+  function handleLoadMore() {
+    dispatch(actGetCommentAsync({ post: idPostDetail, page: currentPage + 1 }));
+  }
   return (
     <div className="post-detail__comments">
       <div className="comments__form">
@@ -29,15 +35,21 @@ function PostDetailComments() {
       </div>
       {
         <>
-          <p>{data.totalComment} Comments</p>
+          <p>{totalComment} Comments</p>
           <ul className="comments">
-            {data.listComment.map((item) => {
-              return <CommentItem item={item} />;
-            })}
+            {listComment.map((item) => (
+              <CommentItem key={item.id} item={item} />
+            ))}
+            {hasMorePost && (
+              <div className="comments-load_more" onClick={handleLoadMore}>
+                Xem thêm {restComment} comments
+              </div>
+            )}
           </ul>
         </>
       }
     </div>
+
     // <>
     //   <p>{data.totalComment} Comments</p>
     //   <ul className="comments">
