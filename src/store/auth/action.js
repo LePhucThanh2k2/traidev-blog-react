@@ -24,28 +24,7 @@ export function actLoginSuccess(token, user) {
   return { type: ACT_LOGIN_SUCCESS, payload: { token, user } };
 }
 // ACT ASYNC
-export function actChangePasswordAsync(
-  token,
-  password,
-  newPassword,
-  confirmNewPassword
-) {
-  return async (dispatch) => {
-    try {
-      const response = await authService.changPassword(
-        token,
-        password,
-        newPassword,
-        confirmNewPassword
-      );
-      console.log("ChangePassword", response);
 
-      return { ok: true };
-    } catch (error) {
-      return { ok: false, message: "The Username And Password Is Incorrect" };
-    }
-  };
-}
 export function actFetchMeAsync(token) {
   return async (dispatch) => {
     if (token === undefined) {
@@ -85,6 +64,28 @@ export function actRegisterAsync(email, username, password, nickname) {
       return { ok: true };
     } catch (error) {
       return { ok: false, message: "Registration Failed" };
+    }
+  };
+}
+// ACT Change password
+export function actChangePasswordAsync(
+  token,
+  password,
+  newPassword,
+  confirmNewPassword
+) {
+  return async () => {
+    try {
+      await authService.changePassword(
+        token,
+        password,
+        newPassword,
+        confirmNewPassword
+      );
+      console.log("change password success");
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, message: "Change Password Failed" };
     }
   };
 }

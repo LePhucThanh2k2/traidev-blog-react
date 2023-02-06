@@ -14,7 +14,7 @@ function CommentItem({ item }) {
     (state) => state.postReducer.listChildComment[idComment]
   );
 
-  console.log("dataChildComment", dataChildComment);
+  console.log("item", item);
   let currentPage = 0;
   let totalPages = 0;
   let listComment = [];
@@ -41,12 +41,7 @@ function CommentItem({ item }) {
       <div className="comments__section">
         <div className="comments__section--avatar">
           <a href="/#">
-            <img
-              src={
-                "https://images.unsplash.com/photo-1611199340099-91a595a86812?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fGF1dGhvcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-              }
-              alt="avtUser"
-            />
+            <img src={item.author.avatar} alt="avatar" />
           </a>
         </div>
         <div className="comments__section--content">

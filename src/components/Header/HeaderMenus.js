@@ -62,21 +62,11 @@ function HeaderMenus() {
         <ul className="header-nav__lists">{dataMenu.map(renderMenuLevel)}</ul>
         <ul className="header-nav__lists">
           <li className="user">
-            <Link to={`${"/login"}`}>
+            <Link to={`${infoAuthor ? "/" : "/login"}`}>
               <i className="icons ion-person" />{" "}
               {!infoAuthor ? "Tài khoản" : infoAuthor.nickname}
             </Link>
-            {/* Not Login */}
-            {/* {user.username === usernameDefault && (
-              <ul>
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
-                <li>
-                  <Link to="/register">Register</Link>
-                </li>
-              </ul>
-            )} */}
+
             {/* Have Been Login */}
             {infoAuthor && (
               <ul>

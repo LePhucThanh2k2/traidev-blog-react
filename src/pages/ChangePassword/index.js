@@ -42,39 +42,15 @@ function ChangePassword() {
     setIsDirtyForm(true);
   }
 
-  function checkFormIsValid() {
-    if (!isDirtyForm) {
-      setFormData({
-        password: {
-          value: "",
-          error: handleFormValidation({ value: "", name: "password" }),
-        },
-        newPassword: {
-          value: "",
-          error: handleFormValidation({ value: "", name: "password" }),
-        },
-        confirmNewPassword: {
-          value: "",
-          error: handleFormValidation({ value: "", name: "confirmPassword" }),
-        },
-      });
-      return false;
-    }
-    return true;
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
     const password = formData.password.value;
     const newPassword = formData.newPassword.value;
-    const confirmPassword = formData.confirmNewPassword.value;
-    const isValidate = checkFormIsValid();
-    if (isValidate) {
-      dispatch(
-        actChangePasswordAsync(token, password, newPassword, confirmPassword)
-      );
-      console.log("Success", formData);
-    }
+    const confirmNewPassword = formData.confirmNewPassword.value;
+    console.log(password, newPassword, confirmNewPassword, token);
+    dispatch(
+      actChangePasswordAsync(token, password, newPassword, confirmNewPassword)
+    );
   }
 
   return (

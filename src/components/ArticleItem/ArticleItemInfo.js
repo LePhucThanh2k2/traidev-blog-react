@@ -3,9 +3,10 @@ import ArticleItemAvatar from "./ArticleItemAvatar";
 
 export default function ArticleItemInfo({ isShowAvatar, infoAuthor, date }) {
   const { dateRelative, dateFormatted } = formatRelativeDate(date);
+
   return (
     <div className="article-item__info">
-      {isShowAvatar && <ArticleItemAvatar />}
+      {isShowAvatar && <ArticleItemAvatar avatar={infoAuthor.avatar} />}
       <div className="article-item__info-right">
         <div className="article-item__author-name">
           <a href="/">

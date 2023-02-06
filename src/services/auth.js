@@ -22,12 +22,8 @@ const authService = {
       },
     });
   },
-  changPassword: (token, password, newPassword, confirmNewPassword) => {
-    console.log(token);
-    console.log(password);
-    console.log(newPassword);
-    console.log(confirmNewPassword);
-    return api.get(`/wp/v2/users/password`, {
+  changePassword: (token, password, newPassword, confirmNewPassword) => {
+    return api.put(`/wp/v2/users/password`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
