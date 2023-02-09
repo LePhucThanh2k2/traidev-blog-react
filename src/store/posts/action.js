@@ -152,7 +152,6 @@ export function actGetCommentAsync(params) {
   return async (dispatch) => {
     try {
       const response = await postService.getCommentPostDetail({ ...params });
-
       const listComment = response.data.map(mappingListComment);
       dispatch(
         actGetComment({

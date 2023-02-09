@@ -2,7 +2,11 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { commentItem, createMarkup, strHtmlAfterMarkup } from "../../helper";
-import { actGetListChildCommentAsync } from "../../store/posts/action";
+import { actPostNewCommentAsync } from "../../store/comment/action";
+import {
+  actGetCommentAsync,
+  actGetListChildCommentAsync,
+} from "../../store/posts/action";
 import "./main.css";
 
 function CommentItem({ item }) {
@@ -13,8 +17,7 @@ function CommentItem({ item }) {
   const dataChildComment = useSelector(
     (state) => state.postReducer.listChildComment[idComment]
   );
-
-  console.log("item", item);
+  const test = useSelector((state) => state.postReducer);
   let currentPage = 0;
   let totalPages = 0;
   let listComment = [];
@@ -26,6 +29,7 @@ function CommentItem({ item }) {
     totalComment = dataChildComment.currentPage;
   }
   let restComment = item.totalCommentReply - 3 * currentPage;
+  const [showForm, setShowForm] = useState(false);
   function handleLoadMore() {
     dispatch(
       actGetListChildCommentAsync({
@@ -35,6 +39,27 @@ function CommentItem({ item }) {
         post: idPostDetail,
       })
     );
+  }
+  const token = localStorage.getItem("token");
+  const [content, setContent] = useState("");
+  const idAuthor = useSelector((state) => state.infoAuthorReducer.infoAuthor);
+  function handleChange(e) {
+    setContent(e.target.value);
+  }
+  function handleSubmit() {
+    const data = {
+      author: idAuthor.id,
+      content: content,
+      post: idPostDetail,
+      parent: idComment,
+    };
+    dispatch(actPostNewCommentAsync(data, token)).then((res) => {
+      if (res.ok) {
+        dispatch(actGetCommentAsync({ post: idPostDetail, page: 1 }));
+        setContent("");
+        console.log(test);
+      }
+    });
   }
   return (
     <li className="item">
@@ -52,7 +77,26 @@ function CommentItem({ item }) {
           <div className="comments__section--text">
             {strHtmlAfterMarkup(strMarkup)}
           </div>
-          <i className="ion-reply comments__section--reply"></i>
+          <i
+            className="ion-reply comments__section--reply"
+            onClick={() => {
+              setShowForm(!showForm);
+            }}
+          ></i>
+          {showForm && (
+            <>
+              <div className="comments__form-reply">
+                <div className="comments__form-reply--control">
+                  <textarea value={content} onChange={handleChange} />
+                </div>
+                <div className="text-right">
+                  <button className="btn btn-default" onClick={handleSubmit}>
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
 

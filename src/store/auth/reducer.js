@@ -1,9 +1,15 @@
-import { ACT_LOGIN, ACT_FETCH_ME, ACT_LOGIN_SUCCESS } from "../auth/action";
+import {
+  ACT_LOGIN,
+  ACT_FETCH_ME,
+  ACT_LOGIN_SUCCESS,
+  ACT_GET_USER,
+} from "../auth/action";
 
 const initState = {
   infoLogin: null,
   infoAuthor: null,
   token: "",
+  avtUser: null,
 };
 function infoAuthorReducer(state = initState, action) {
   switch (action.type) {
@@ -28,6 +34,11 @@ function infoAuthorReducer(state = initState, action) {
         ...state,
         token: action.payload.token,
         infoAuthor: action.payload.user,
+      };
+    case ACT_GET_USER:
+      return {
+        ...state,
+        avtUser: action.payload.data,
       };
 
     default:

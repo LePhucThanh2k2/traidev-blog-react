@@ -1,22 +1,47 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { actGetUserAsync } from "../../store/auth/action";
+import { actPostNewCommentAsync } from "../../store/comment/action";
 import { actGetCommentAsync } from "../../store/posts/action";
 import CommentItem from "../CommentItem";
 
 function PostDetailComments() {
   const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
   const idPostDetail = useSelector((state) => state.postReducer.postDetail.id);
+  useEffect(() => {
+    dispatch(actGetUserAsync(token));
+  }, [token]);
+  const [content, setContent] = useState("");
   const { currentPage, listComment, totalComment, totalPages } = useSelector(
     (state) => state.postReducer.dataComment
   );
+  const idAuthor = useSelector((state) => state.infoAuthorReducer.infoAuthor);
 
   let restComment = totalComment - 5 * (currentPage - 1);
-
   const hasMorePost = currentPage < totalPages;
+  let avtUser = useSelector((state) => state.infoAuthorReducer.avtUser);
 
   function handleLoadMore() {
     dispatch(actGetCommentAsync({ post: idPostDetail, page: currentPage + 1 }));
+  }
+  function handleChange(e) {
+    setContent(e.target.value);
+  }
+  function handleSubmit() {
+    const data = {
+      author: idAuthor.id,
+      content: content,
+      post: idPostDetail,
+      parent: 0,
+    };
+    dispatch(actPostNewCommentAsync(data, token)).then((res) => {
+      if (res.ok) {
+        dispatch(actGetCommentAsync({ post: idPostDetail, page: 1 }));
+        setContent("");
+      }
+    });
   }
   return (
     <div className="post-detail__comments">
@@ -24,13 +49,15 @@ function PostDetailComments() {
         <div className="comments__form--control">
           <div className="comments__section--avatar">
             <a href="/#">
-              <img src="./assets/images/avatar1.jpg" alt="username" />
+              <img src={avtUser} alt="username" />
             </a>
           </div>
-          <textarea defaultValue={""} />
+          <textarea value={content} onChange={handleChange} />
         </div>
         <div className="text-right">
-          <button className="btn btn-default">Submit</button>
+          <button className="btn btn-default" onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
       </div>
       {

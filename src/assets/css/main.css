@@ -221,3 +221,58 @@ ul.slick-dots li button:before {
 .latest-news__card.fade-up .article-item:hover {
   box-shadow: rgba(52, 48, 58, 0.553) 0 5px 10px 0;
 }
+.update-profile {
+  text-align: center;
+}
+.update-profile span {
+  display: block;
+}
+.header {
+}
+.upload {
+  margin: 0 auto;
+  font-size: 50px;
+  cursor: pointer;
+  display: inline-block;
+}
+.preview-image {
+  border: 1px #718096 dashed;
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+  display: block;
+  object-fit: cover;
+}
+.content {
+  width: 250px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 5px;
+}
+.input-file {
+  display: none;
+}
+.btn-submit {
+  margin: 0 auto;
+  width: 150px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 25px;
+  color: #fff;
+  font-weight: bold;
+  background-color: #26c9ff;
+  cursor: pointer;
+  box-shadow: 0px 5px 4px 0px rgb(84, 69, 240);
+  transition: all 0.125s linear;
+}
+
+.btn-submit:active {
+  width: 145px;
+  height: 48px;
+  line-height: 48px;
+  box-shadow: 0px 2px 4px 0px rgb(24 4 255);
+}
+#footer {
+  margin-top: auto;
+}

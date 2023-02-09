@@ -16,6 +16,7 @@ import AOS from "../node_modules/aos/dist/aos";
 import "../node_modules/aos/dist/aos.css";
 import { actFetchMeAsync } from "./store/auth/action";
 import ChangePassword from "./pages/ChangePassword";
+import UpdateProfilePage from "./pages/UpdateProfilePage";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -51,6 +52,9 @@ function App() {
           </Route>
           <Route path="/category/:id">
             <PostCategoryPage />
+          </Route>
+          <Route path="/updateProfile">
+            <UpdateProfilePage />
           </Route>
           <Route path="*">
             <img src={backgroundPage404} alt="page_404" className="page404" />

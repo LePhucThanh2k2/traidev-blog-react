@@ -3,6 +3,7 @@ import authService from "../../services/auth";
 export const ACT_LOGIN = "ACT_LOGIN";
 export const ACT_REGISTER = "ACT_REGISTER";
 export const ACT_FETCH_ME = "ACT_FETCH_ME";
+export const ACT_GET_USER = "ACT_GET_USER";
 export const ACT_LOGOUT = "ACT_LOGOUT";
 export const ACT_LOGIN_SUCCESS = "ACT_LOGIN_SUCCESS";
 export const ACT_CHANGE_PASSWORD = "ACT_CHANGE_PASSWORD";
@@ -23,7 +24,25 @@ export function actLogout() {
 export function actLoginSuccess(token, user) {
   return { type: ACT_LOGIN_SUCCESS, payload: { token, user } };
 }
+export function actGetAvtUser(data) {
+  return { type: ACT_GET_USER, payload: { data } };
+}
 // ACT ASYNC
+export function actGetUserAsync(token) {
+  return async (dispatch) => {
+    if (token === undefined) {
+      token = localStorage.getItem("token");
+    }
+    try {
+      const response = await authService.fetchMe(token);
+      const data = response.data["simple_local_avatar"].full;
+      dispatch(actGetAvtUser(data));
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, message: "Username And Password Incorrect" };
+    }
+  };
+}
 
 export function actFetchMeAsync(token) {
   return async (dispatch) => {
@@ -74,7 +93,7 @@ export function actChangePasswordAsync(
   newPassword,
   confirmNewPassword
 ) {
-  return async () => {
+  return async (dispatch) => {
     try {
       await authService.changePassword(
         token,
@@ -82,7 +101,6 @@ export function actChangePasswordAsync(
         newPassword,
         confirmNewPassword
       );
-      console.log("change password success");
       return { ok: true };
     } catch (error) {
       return { ok: false, message: "Change Password Failed" };

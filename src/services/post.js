@@ -24,7 +24,7 @@ const postService = {
         per_page: 5,
         page: 1,
         parent: 0,
-        order: "asc",
+        // order: "des",
         ...params,
       },
     });

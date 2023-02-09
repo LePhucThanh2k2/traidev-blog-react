@@ -50,7 +50,11 @@ function ChangePassword() {
     console.log(password, newPassword, confirmNewPassword, token);
     dispatch(
       actChangePasswordAsync(token, password, newPassword, confirmNewPassword)
-    );
+    ).then((res) => {
+      if (res.ok) {
+        history.push("/");
+      }
+    });
   }
 
   return (

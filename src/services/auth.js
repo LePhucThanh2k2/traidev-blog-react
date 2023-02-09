@@ -23,14 +23,19 @@ const authService = {
     });
   },
   changePassword: (token, password, newPassword, confirmNewPassword) => {
-    return api.put(`/wp/v2/users/password`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    return api.put(
+      `/wp/v2/users/password`,
+      {
+        password: password,
+        new_password: newPassword,
+        confirm_new_password: confirmNewPassword,
       },
-      password: password,
-      new_password: newPassword,
-      confirm_new_password: confirmNewPassword,
-    });
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   },
 };
 export default authService;

@@ -1,3 +1,4 @@
+import { logDOM } from "@testing-library/react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +12,7 @@ import "./main.css";
 
 function PostDetailPage() {
   const data = useSelector((state) => state.postReducer.postDetail);
+
   let slug = useParams();
   const [status, setStatus] = useState("loading");
   const dispatch = useDispatch();
