@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { actUpdateProfileAsync } from "../store/updateProfile/action";
+import { useHistory } from "react-router-dom";
+import { actUploadMediaAsync } from "../store/updateProfile/action";
 
 function UpdateProfilePage() {
   const [avatar, setAvatar] = useState(null);
+  const [content, setContent] = useState("");
+  const history = useHistory();
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   function handlePreviewAvatar(e) {
@@ -12,12 +15,16 @@ function UpdateProfilePage() {
     setAvatar(file);
   }
   function handleSubmit(e) {
-    const data = new FormData();
     e.preventDefault();
-    data.append("File", avatar);
-    // dispatch(actUpdateProfileAsync(data, token));
-    console.log(data);
+    const data = new FormData();
+    data.append("file", avatar);
+    dispatch(actUploadMediaAsync(content, data, token)).then((res) => {
+      if (res.ok) {
+        history.push("/");
+      }
+    });
   }
+
   return (
     <>
       <div className="update-profile">
@@ -40,7 +47,13 @@ function UpdateProfilePage() {
           ></img>
         )}
         <span>Description Information</span>
-        <textarea name="description" className="content"></textarea>
+        <textarea
+          name="description"
+          className="content"
+          onChange={(e) => {
+            setContent(e.target.value);
+          }}
+        ></textarea>
         <div className="btn-submit" onClick={handleSubmit}>
           Submit
         </div>

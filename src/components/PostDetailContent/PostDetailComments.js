@@ -12,7 +12,7 @@ function PostDetailComments() {
   const idPostDetail = useSelector((state) => state.postReducer.postDetail.id);
   useEffect(() => {
     dispatch(actGetUserAsync(token));
-  }, [token]);
+  }, [token, dispatch]);
   const [content, setContent] = useState("");
   const { currentPage, listComment, totalComment, totalPages } = useSelector(
     (state) => state.postReducer.dataComment

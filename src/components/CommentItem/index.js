@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { commentItem, createMarkup, strHtmlAfterMarkup } from "../../helper";
+import { createMarkup, strHtmlAfterMarkup } from "../../helper";
 import { actPostNewCommentAsync } from "../../store/comment/action";
 import {
   actGetCommentAsync,
@@ -19,14 +18,14 @@ function CommentItem({ item }) {
   );
   const test = useSelector((state) => state.postReducer);
   let currentPage = 0;
-  let totalPages = 0;
+  // let totalPages = 0;
   let listComment = [];
-  let totalComment = 0;
+  // let totalComment = 0;
   if (dataChildComment) {
     currentPage = dataChildComment.currentPage;
-    totalPages = dataChildComment.totalPages;
+    // totalPages = dataChildComment.totalPages;
     listComment = [...dataChildComment.listComment];
-    totalComment = dataChildComment.currentPage;
+    // totalComment = dataChildComment.currentPage;
   }
   let restComment = item.totalCommentReply - 3 * currentPage;
   const [showForm, setShowForm] = useState(false);

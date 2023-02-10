@@ -54,7 +54,6 @@ function HeaderMenus() {
     dispatch(actLogout());
     localStorage.removeItem("token");
   }
-  function handleUpdateProfile() {}
   return (
     <div className="tcl-col-6">
       {/* Main - Menu */}

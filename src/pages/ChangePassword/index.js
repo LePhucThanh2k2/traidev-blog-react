@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Input from "../../components/shared/Input";
 import { handleFormValidation } from "../../helper";
 import { useNotAuthenticated } from "../../hook/useNotAuthenticated";
-import { actChangePasswordAsync, actLoginAsync } from "../../store/auth/action";
+import { actChangePasswordAsync } from "../../store/auth/action";
 import "./main.css";
 function ChangePassword() {
   useNotAuthenticated();
@@ -12,7 +12,7 @@ function ChangePassword() {
   const history = useHistory();
   const token = localStorage.getItem("token");
   const [formError, setFormError] = useState("");
-  const [isDirtyForm, setIsDirtyForm] = useState(false);
+  // const [isDirtyForm, setIsDirtyForm] = useState(false);
   const [formData, setFormData] = useState({
     password: {
       value: "",
@@ -39,7 +39,7 @@ function ChangePassword() {
         error: handleFormValidation({ value, name }),
       },
     });
-    setIsDirtyForm(true);
+    // setIsDirtyForm(true);
   }
 
   function handleSubmit(e) {
@@ -47,12 +47,13 @@ function ChangePassword() {
     const password = formData.password.value;
     const newPassword = formData.newPassword.value;
     const confirmNewPassword = formData.confirmNewPassword.value;
-    console.log(password, newPassword, confirmNewPassword, token);
     dispatch(
       actChangePasswordAsync(token, password, newPassword, confirmNewPassword)
     ).then((res) => {
       if (res.ok) {
         history.push("/");
+      } else {
+        setFormError("Error");
       }
     });
   }

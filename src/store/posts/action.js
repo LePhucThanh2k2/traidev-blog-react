@@ -1,5 +1,4 @@
 import {
-  mappingListChildComment,
   mappingListComment,
   mappingPostData,
   mappingPostDetailData,
