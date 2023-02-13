@@ -1,9 +1,6 @@
-import {
-  mappingListComment,
-  mappingPostData,
-  mappingPostDetailData,
-} from "../../helper";
+import { mappingPostData, mappingPostDetailData } from "../../helper";
 import postService from "../../services/post";
+import { actGetCommentAsync } from "../comment/action";
 
 //==================================Action type============================================================
 export const GET_POST_LATEST = "GET_POST_LATEST ";
@@ -13,8 +10,8 @@ export const GET_POST_DETAIL = "GET_POST_DETAIL ";
 export const GET_POST_RELATED_BY_AUTHOR = "GET_POST_RELATED_BY_AUTHOR ";
 export const GET_LIST_POST_BY_ID_CATEGORY = "GET_LIST_POST_BY_ID_CATEGORY";
 export const GET_LIST_POST_BY_KEYWORD = "GET_LIST_POST_BY_KEYWORD";
-export const GET_LIST_COMMENT = "GET_LIST_COMMENT";
-export const GET_LIST_CHILD_COMMENT = "GET_LIST_CHILD_COMMENT";
+export const GET_POST_PAGING = "GET_POST_PAGING";
+
 //==================================Action Creator============================================================
 export function actGetPostLatest(posts) {
   return { type: GET_POST_LATEST, payload: { posts } };
@@ -24,10 +21,16 @@ export function actGetPostPopular(posts) {
   return { type: GET_POST_POPULAR, payload: { posts } };
 }
 
-export function actGetPostGeneral(posts, totalPages) {
+export function actGetPostGeneral(params) {
   return {
     type: GET_POST_GENERAL,
-    payload: { posts, totalPages },
+    payload: { ...params },
+  };
+}
+export function actGetPostPaging(params) {
+  return {
+    type: GET_POST_PAGING,
+    payload: { ...params },
   };
 }
 
@@ -49,22 +52,9 @@ export function actGetListPostByIdCategory(data, totalPages, totalItems, page) {
 export function actGetListPostByKeyword(posts, totalPages, totalItems, page) {
   return {
     type: GET_LIST_POST_BY_KEYWORD,
-    payload: { posts, totalPages, totalItems, currentPage: page },
+    payload: { posts, totalPages, totalItems, page },
   };
 }
-export function actGetComment(params) {
-  return {
-    type: GET_LIST_COMMENT,
-    payload: { ...params },
-  };
-}
-export function actGetListChildComment(params) {
-  return {
-    type: GET_LIST_CHILD_COMMENT,
-    payload: { ...params },
-  };
-}
-
 //==================================Action Async============================================================
 export function actGetPostLatestAsync({ per_page, page }) {
   return async (dispatch) => {
@@ -81,12 +71,30 @@ export function actGetPostPopularAsync({ per_page, page }) {
     dispatch(actGetPostPopular(posts));
   };
 }
-export function actGetPostGeneralAsync({ per_page, page }) {
+export function actGetPostGeneralAsync(params) {
+  const { search, page } = { ...params };
   return async (dispatch) => {
-    const response = await postService.getList({ per_page, page });
+    const response = await postService.getList({ ...params });
     const totalPages = parseInt(response.headers["x-wp-totalpages"]);
+    const totalItems = parseInt(response.headers["x-wp-total"]);
     const posts = response.data.map(mappingPostData);
-    dispatch(actGetPostGeneral(posts, totalPages));
+    if (search) {
+      dispatch(actGetListPostByKeyword(posts, totalPages, totalItems, page));
+    } else {
+      dispatch(actGetPostGeneral({ posts, totalPages, page }));
+    }
+  };
+}
+export function actGetPostPagingAsync(params) {
+  console.log("params", params);
+  const { page } = { ...params };
+  return async (dispatch) => {
+    const response = await postService.getList(params);
+    const totalPages = parseInt(response.headers["x-wp-totalpages"]);
+    const totalItems = parseInt(response.headers["x-wp-total"]);
+    const posts = response.data.map(mappingPostData);
+
+    dispatch(actGetPostPaging({ posts, totalPages, page, totalItems }));
   };
 }
 
@@ -145,46 +153,5 @@ export function actGetListPostByKeywordAsync({ per_page, page, search }) {
     const totalItems = parseInt(response.headers["x-wp-total"]);
     const posts = response.data.map(mappingPostData);
     dispatch(actGetListPostByKeyword(posts, totalPages, totalItems, page));
-  };
-}
-export function actGetCommentAsync(params) {
-  return async (dispatch) => {
-    try {
-      const response = await postService.getCommentPostDetail({ ...params });
-      const listComment = response.data.map(mappingListComment);
-      dispatch(
-        actGetComment({
-          totalPages: response.headers["x-wp-totalpages"],
-          totalComment: response.headers["x-wp-total"],
-          data: listComment,
-          currentPage: params.page,
-        })
-      );
-
-      return { ok: true };
-    } catch (error) {
-      return { ok: false, message: "List Comment NotFound" };
-    }
-  };
-}
-export function actGetListChildCommentAsync(params) {
-  return async (dispatch) => {
-    try {
-      const response = await postService.getCommentPostDetail({ ...params });
-      // console.log(response);
-      const listComment = response.data.map(mappingListComment);
-      dispatch(
-        actGetListChildComment({
-          totalPages: response.headers["x-wp-totalpages"],
-          totalComment: response.headers["x-wp-total"],
-          data: listComment,
-          parentId: params.parent,
-          currentPage: params.page,
-        })
-      );
-      return { ok: true };
-    } catch (error) {
-      return { ok: false, message: "List Comment NotFound" };
-    }
   };
 }

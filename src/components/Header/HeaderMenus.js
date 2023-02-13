@@ -29,7 +29,6 @@ function HeaderMenus() {
   const [toggleMenu, setToggleMenu] = useState(false);
   const dataMenu = useSelector((state) => state.menuReducer.listMenu);
   const infoAuthor = useSelector((state) => state.infoAuthorReducer.infoAuthor);
-
   // Display username after when login
   // useEffect(() => {
   //   if (infoAuthor.nickname) {

@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://wp-api.test/wp-json",
+  baseURL: "https://joker.azdigi.blog/wp-json",
 });

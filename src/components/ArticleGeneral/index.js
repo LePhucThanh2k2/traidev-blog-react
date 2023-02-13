@@ -1,31 +1,10 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { actGetPostGeneralAsync } from "../../store/posts/action";
+import usePostsPaping from "../../hook/usePostsPaping";
 import ArticleItem from "../ArticleItem";
-import Button from "../shared/Button";
 import MainTitle from "../shared/MainTitle";
 
 function ArticleGeneral() {
-  const [currentPage, setCurrentPage] = useState(3);
-  const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
-  const { list: data, totalPages } = useSelector(
-    (state) => state.postReducer.listPostGeneral
-  );
-  const hasMorePost = currentPage <= totalPages;
+  const { data, showButtonLoadMore } = usePostsPaping();
 
-  function handleLoadMore() {
-    setLoading(true);
-    dispatch(
-      actGetPostGeneralAsync({
-        per_page: 2,
-        page: currentPage,
-      })
-    ).then(() => {
-      setLoading(false);
-    });
-    setCurrentPage(currentPage + 1);
-  }
   return (
     <div className="articles-list section" data-aos="fade-right">
       <div className="tcl-container">
@@ -46,19 +25,7 @@ function ArticleGeneral() {
             );
           })}
         </div>
-        {/* End Row News List */}
-        {hasMorePost && (
-          <div className="text-center">
-            <Button
-              type="primary"
-              size="large"
-              loading={loading}
-              onClick={handleLoadMore}
-            >
-              Tải thêm
-            </Button>
-          </div>
-        )}
+        {showButtonLoadMore()}
       </div>
     </div>
   );

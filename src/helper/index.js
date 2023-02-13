@@ -44,6 +44,7 @@ export function mappingListComment(item) {
     content: item.content.rendered,
     date: formatRelativeDate(item.date).dateRelative,
     id: item.id,
+    parentId: item.parent,
   };
 }
 export function mappingListChildComment(item) {

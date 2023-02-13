@@ -1,7 +1,20 @@
 import { api } from "./api";
 
 const commentService = {
-  postNewComment: (data, token) => {
+  getCommentPostDetail: (params) => {
+    return api.get(`/wp/v2/comments`, {
+      params: {
+        per_page: 5,
+        page: 1,
+        parent: 0,
+        order: "asc",
+        ...params,
+      },
+    });
+  },
+  postNewComment: (data) => {
+    const token = localStorage.getItem("token");
+
     return api.post(
       `wp/v2/comments`,
       {

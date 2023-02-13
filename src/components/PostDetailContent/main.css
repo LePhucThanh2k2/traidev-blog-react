@@ -153,6 +153,10 @@
 .comments .comments__form {
   margin-left: 42px;
   margin-top: 1rem;
+  width: 100%;
+}
+.comments .comments__form--reply {
+  width: 100%;
 }
 .comments .comments-load_more {
   display: flex;

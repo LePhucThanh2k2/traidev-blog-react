@@ -1,42 +1,53 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import ArticleItem from "../components/ArticleItem";
 import Button from "../components/shared/Button";
-import MainTitle from "../components/shared/MainTitle";
-import { actGetListPostByKeywordAsync } from "../store/posts/action";
+import { actGetPostPagingAsync } from "../store/posts/action";
 
-const location = useLocation();
-const keyword = new URLSearchParams(location.search).get("q");
-const [loading, setLoading] = useState(false);
-const dispatch = useDispatch();
-useEffect(() => {
-  dispatch(
-    actGetListPostByKeywordAsync({ per_page: 3, page: 1, search: keyword })
-  );
-}, [location, keyword, dispatch]);
+function usePostsPaping(extraParams = {}) {
+  const dispatch = useDispatch();
 
-const {
-  list: data,
-  totalItems,
-  totalPages,
-  currentPageSearch,
-} = useSelector((state) => state.postReducer.listPostBySearch);
+  const [loading, setLoading] = useState(false);
 
-const hideButton = currentPageSearch === totalPages;
+  const {
+    list: data,
+    totalPages,
+    currentPage,
+    totalItems,
+  } = useSelector((state) => state.postReducer.listPostPaging);
 
-function handleLoadMore() {
-  setLoading(true);
-  if (!hideButton) {
+  const hideButton = currentPage === totalPages;
+
+  function handleLoadMore() {
+    setLoading(true);
     dispatch(
-      actGetListPostByKeywordAsync({
-        per_page: 3,
-        page: currentPageSearch + 1,
-        search: keyword,
+      actGetPostPagingAsync({
+        per_page: 2,
+        page: currentPage + 1,
+        ...extraParams,
       })
     ).then(() => {
       setLoading(false);
     });
   }
+
+  function showButtonLoadMore() {
+    return (
+      !hideButton && (
+        <div className="text-center">
+          <Button
+            type="primary"
+            size="large"
+            loading={loading}
+            onClick={handleLoadMore}
+          >
+            Tải thêm
+          </Button>
+        </div>
+      )
+    );
+  }
+
+  return { data, showButtonLoadMore, totalItems };
 }
-export { handleLoadMore };
+
+export default usePostsPaping;

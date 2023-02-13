@@ -1,43 +1,26 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import ArticleItem from "../components/ArticleItem";
-import Button from "../components/shared/Button";
 import MainTitle from "../components/shared/MainTitle";
-import { actGetListPostByKeywordAsync } from "../store/posts/action";
+import usePostsPaping from "../hook/usePostsPaping";
+import {
+  actGetPostGeneralAsync,
+  actGetPostPaging,
+  actGetPostPagingAsync,
+} from "../store/posts/action";
 function SearchPage() {
   const location = useLocation();
   const keyword = new URLSearchParams(location.search).get("q");
-  const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
+  const { data, showButtonLoadMore, totalItems } = usePostsPaping({
+    search: keyword,
+    per_page: 3,
+  });
   useEffect(() => {
-    dispatch(
-      actGetListPostByKeywordAsync({ per_page: 3, page: 1, search: keyword })
-    );
+    dispatch(actGetPostPagingAsync({ per_page: 3, page: 1, search: keyword }));
   }, [location, keyword, dispatch]);
-
-  const {
-    list: data,
-    totalItems,
-    totalPages,
-    currentPageSearch,
-  } = useSelector((state) => state.postReducer.listPostBySearch);
-
-  const hideButton = currentPageSearch === totalPages;
-  function handleLoadMore() {
-    setLoading(true);
-    if (!hideButton) {
-      dispatch(
-        actGetListPostByKeywordAsync({
-          per_page: 3,
-          page: currentPageSearch + 1,
-          search: keyword,
-        })
-      ).then(() => {
-        setLoading(false);
-      });
-    }
-  }
 
   return (
     <div className="articles-list section">
@@ -64,18 +47,7 @@ function SearchPage() {
               </div>
             );
           })}
-        {!hideButton && (
-          <div className="text-center">
-            <Button
-              type="primary"
-              size="large"
-              loading={loading}
-              onClick={handleLoadMore}
-            >
-              Load More
-            </Button>
-          </div>
-        )}
+        {showButtonLoadMore()}
       </div>
     </div>
   );
