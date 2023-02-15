@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 import { createMarkup, strHtmlAfterMarkup } from "../../helper";
 import {
   actGetCommentAsync,
@@ -56,8 +57,12 @@ function CommentItem({ item }) {
       post: idPostDetail,
       parent: idComment,
     };
-    dispatch(actPostNewCommentAsync(data, token));
-    setContent("");
+    dispatch(actPostNewCommentAsync(data, token)).then((res) => {
+      if (res.ok) {
+        setContent("");
+        toast("You are success commented !");
+      }
+    });
   }
   function handleLoadMore() {
     dispatch(
@@ -78,25 +83,21 @@ function CommentItem({ item }) {
             <img src={item.author.avatar} alt="avatar" />
           </a>
         </div>
+        <ToastContainer />
         <div className="comments__section--content">
           <a href="/#" className="comments__section--user">
             {item.author.nickname}
           </a>
           <p className="comments__section--time">{item.date}</p>
-          <div
-            className="comments__section--text"
-            onClick={() => {
-              setShowForm(!showForm);
-            }}
-          >
+          <div className="comments__section--text">
             {strHtmlAfterMarkup(strMarkup)}
           </div>
-          {/* <i
+          <i
             className="ion-reply comments__section--reply"
             onClick={() => {
               setShowForm(!showForm);
             }}
-          ></i> */}
+          ></i>
           {showForm && (
             <FormComment
               funcHandleChange={handleChange}
