@@ -82,15 +82,20 @@ function CommentItem({ item }) {
             {item.author.nickname}
           </a>
           <p className="comments__section--time">{item.date}</p>
-          <div className="comments__section--text">
+          <div
+            className="comments__section--text"
+            onClick={() => {
+              setShowForm(!showForm);
+            }}
+          >
             {strHtmlAfterMarkup(strMarkup)}
           </div>
-          <i
+          {/* <i
             className="ion-reply comments__section--reply"
             onClick={() => {
               setShowForm(!showForm);
             }}
-          ></i>
+          ></i> */}
           {showForm && (
             <FormComment
               funcHandleChange={handleChange}
