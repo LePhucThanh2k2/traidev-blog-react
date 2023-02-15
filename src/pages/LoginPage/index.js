@@ -83,7 +83,6 @@ function LoginPage() {
         actLoginAsync(formData.username.value, formData.password.value)
       ).then((res) => {
         if (res.ok) {
-          console.log("login success");
           history.push("/");
         } else {
           setFormError(res.message);

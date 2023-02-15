@@ -12,16 +12,21 @@ export function actGetComment(params) {
     payload: { ...params },
   };
 }
-
+export function actGetListChildComment(params) {
+  return {
+    type: GET_LIST_CHILD_COMMENT,
+    payload: params,
+  };
+}
 export function actPostNewComment(data) {
   return { type: ACT_POST_NEW_COMMENT, payload: { data } };
 }
 export function actReplyComment(data) {
+  console.log(data);
   return { type: REPLY_COMMENT, payload: { data } };
 }
 // ASYNC
 export function actPostNewCommentAsync(data) {
-  console.log("data actPostNewCommentAsync", data);
   return async (dispatch) => {
     try {
       const response = await commentService.postNewComment(data);
@@ -41,19 +46,34 @@ export function actPostNewCommentAsync(data) {
 }
 
 export function actGetCommentAsync(params) {
+  const { parent } = { ...params };
   return async (dispatch) => {
     try {
       const response = await commentService.getCommentPostDetail({ ...params });
       const listComment = response.data.map(mappingListComment);
-
-      dispatch(
-        actGetComment({
-          totalPages: response.headers["x-wp-totalpages"],
-          totalComment: response.headers["x-wp-total"],
-          data: listComment,
-          currentPage: params.page,
-        })
-      );
+      const totalPages = response.headers["x-wp-totalpages"];
+      const totalComment = response.headers["x-wp-total"];
+      const currentPage = params.page;
+      if (parent === 0) {
+        dispatch(
+          actGetComment({
+            totalPages,
+            totalComment,
+            data: listComment,
+            currentPage,
+          })
+        );
+      } else {
+        dispatch(
+          actGetListChildComment({
+            totalPages,
+            totalComment,
+            data: listComment,
+            currentPage,
+            parent,
+          })
+        );
+      }
 
       return { ok: true };
     } catch (error) {

@@ -1,40 +1,50 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createMarkup, strHtmlAfterMarkup } from "../../helper";
-import { actPostNewCommentAsync } from "../../store/comment/action";
+import {
+  actGetCommentAsync,
+  actPostNewCommentAsync,
+} from "../../store/comment/action";
 import FormComment from "../FormComment";
 import "./main.css";
 
 function CommentItem({ item }) {
+  // the number of comments you want to display
+  const THE_NUMBER = 3;
+
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
   const strMarkup = createMarkup(item.content);
   const idComment = item.id;
-  let currentPage = 0;
   const idPostDetail = useSelector((state) => state.postReducer.postDetail.id);
-  // const demo = useSelector((state) => state);
   const [content, setContent] = useState("");
   const [showForm, setShowForm] = useState(false);
   const idAuthor = useSelector((state) => state.infoAuthorReducer.infoAuthor);
-  const dataChildComment = useSelector((state) => state.commentReducer);
-  // const test = useSelector((state) => state.postReducer);
   const listComment = useSelector(
     (state) =>
       state.commentReducer.listChildComment[idComment]?.listComment || []
   );
-  let restComment = item.totalCommentReply - 3 * currentPage;
+  const { currentPage, exclude } = useSelector((state) => {
+    return state.commentReducer.listChildComment;
+  });
 
-  // function handleLoadMore() {
-  //   dispatch(
-  //     actGetListChildCommentAsync({
-  //       per_page: 3,
-  //       page: currentPage + 1,
-  //       parent: idComment,
-  //       post: idPostDetail,
-  //     })
-  //   );
-  // }
+  useEffect(() => {
+    dispatch(
+      actGetCommentAsync({
+        per_page: THE_NUMBER,
+        post: idPostDetail,
+        parent: idComment,
+        page: currentPage || 1,
+      })
+    );
+  }, []);
+  let hasMorePost = false;
+  let restComment;
+  if (listComment.length > 0) {
+    restComment = item.totalCommentReply - THE_NUMBER * currentPage;
 
+    hasMorePost = restComment > 0;
+  }
   function handleChange(e) {
     setContent(e.target.value);
   }
@@ -47,9 +57,18 @@ function CommentItem({ item }) {
       parent: idComment,
     };
     dispatch(actPostNewCommentAsync(data, token));
-    console.log("dataChildComment", dataChildComment);
   }
-  console.log("listCommentChild", listComment);
+  function handleLoadMore() {
+    dispatch(
+      actGetCommentAsync({
+        per_page: THE_NUMBER,
+        post: idPostDetail,
+        parent: idComment,
+        page: currentPage + 1,
+        exclude,
+      })
+    );
+  }
   return (
     <li className="item">
       <div className="comments__section">
@@ -89,12 +108,12 @@ function CommentItem({ item }) {
           {listComment.map((item) => (
             <CommentItem key={item.id} item={item} />
           ))}
-          {/* {hasMorePost && (
-            <div className="comments-load_more" onClick={handleLoadMore}>
-              Xem thêm {restComment} comments
-            </div>
-          )} */}
         </ul>
+      )}
+      {hasMorePost && (
+        <div className="comments-load_more" onClick={handleLoadMore}>
+          Xem thêm {restComment} comments
+        </div>
       )}
     </li>
   );

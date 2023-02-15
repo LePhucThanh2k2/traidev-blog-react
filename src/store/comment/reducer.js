@@ -13,7 +13,9 @@ const initState = {
     totalPages: 0,
     exclude: [],
   },
-  listChildComment: {},
+  listChildComment: {
+    exclude: [],
+  },
 };
 function commentReducer(state = initState, action) {
   switch (action.type) {
@@ -32,31 +34,33 @@ function commentReducer(state = initState, action) {
         },
       };
     case GET_LIST_CHILD_COMMENT:
+      const isExists = state.listChildComment[action.payload.parent]
+        ? false
+        : true;
+      const listComment = {
+        ...state.listChildComment,
+        [action.payload.parent]: {
+          listComment: isExists
+            ? [...action.payload.data]
+            : [
+                ...state.listChildComment[action.payload.parent].listComment,
+                ...action.payload.data,
+              ],
+        },
+        currentPage: action.payload.currentPage,
+        totalComment: parseInt(action.payload.totalComment),
+        totalPages: parseInt(action.payload.totalPages),
+      };
       return {
         ...state,
-        listChildComment: {
-          ...state.listChildComment,
-          [action.payload.parentId]: {
-            listComment:
-              action.payload.currentPage === 1
-                ? action.payload.data
-                : [
-                    ...state.listChildComment[action.payload.parentId]
-                      .listComment,
-                    ...action.payload.data,
-                  ],
-            currentPage: action.payload.currentPage,
-            totalComment: parseInt(action.payload.totalComment),
-            totalPages: parseInt(action.payload.totalPages),
-          },
-        },
+        listChildComment: listComment,
       };
+
     case REPLY_COMMENT:
       const newReplyComment = action.payload.data;
       const isExist = state.listChildComment[newReplyComment.parentId]
         ? true
         : false;
-      // console.log("isExist", isExist);
       const data = {
         ...state.listChildComment,
         [newReplyComment.parentId]: {
@@ -66,11 +70,8 @@ function commentReducer(state = initState, action) {
                 ...state.listChildComment[newReplyComment.parentId].listComment,
               ]
             : [newReplyComment],
-
-          // currentPage: action.payload.currentPage,
-          // totalComment: parseInt(action.payload.totalComment),
-          // totalPages: parseInt(action.payload.totalPages),
         },
+        exclude: [newReplyComment.id, ...state.listChildComment.exclude],
       };
       return {
         ...state,

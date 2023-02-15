@@ -4,11 +4,7 @@ import { useLocation } from "react-router-dom";
 import ArticleItem from "../components/ArticleItem";
 import MainTitle from "../components/shared/MainTitle";
 import usePostsPaping from "../hook/usePostsPaping";
-import {
-  actGetPostGeneralAsync,
-  actGetPostPaging,
-  actGetPostPagingAsync,
-} from "../store/posts/action";
+import { actGetPostPagingAsync } from "../store/posts/action";
 function SearchPage() {
   const location = useLocation();
   const keyword = new URLSearchParams(location.search).get("q");

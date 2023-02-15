@@ -86,7 +86,6 @@ export function actGetPostGeneralAsync(params) {
   };
 }
 export function actGetPostPagingAsync(params) {
-  console.log("params", params);
   const { page } = { ...params };
   return async (dispatch) => {
     const response = await postService.getList(params);
@@ -107,10 +106,12 @@ export function actGetPostDetailAsync({ slug }) {
       const authorId = post.author;
       dispatch(actGetPostDetail(mappingPostDetailData(post)));
       dispatch(actGetPostsRelatedAsync({ authorId }));
-      dispatch(actGetCommentAsync({ post: post.id, per_page: 5, page: 1 }));
+      dispatch(
+        actGetCommentAsync({ post: post.id, per_page: 5, page: 1, parent: 0 })
+      );
+
       return { ok: true };
     } catch (error) {
-      // console.log(error.message);
       return { ok: false };
     }
   };

@@ -25,7 +25,6 @@ export function actUploadMediaAsync(content, data, token) {
       }
       return { ok: true };
     } catch (error) {
-      console.log(error.message);
       return { ok: false, message: "Posting A New Comment Is Wrong" };
     }
   };
@@ -33,8 +32,7 @@ export function actUploadMediaAsync(content, data, token) {
 export function actUpdateProfileAsync(data, token) {
   return async () => {
     try {
-      const responsive = await updateProfile.updateAvatar(data, token);
-      console.log("responsive", responsive);
+      await updateProfile.updateAvatar(data, token);
     } catch (error) {}
   };
 }

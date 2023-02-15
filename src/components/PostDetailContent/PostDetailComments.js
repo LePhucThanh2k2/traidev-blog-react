@@ -16,18 +16,22 @@ function PostDetailComments() {
   const [content, setContent] = useState("");
   const idPostDetail = useSelector((state) => state.postReducer.postDetail.id);
   const idAuthor = useSelector((state) => state.infoAuthorReducer.infoAuthor);
+
   const { currentPage, listComment, totalComment, totalPages, exclude } =
     useSelector((state) => {
       return state.commentReducer.dataComment;
     });
-
   const avtUser = idAuthor?.simple_local_avatar?.full;
   const restComment = totalComment - 5 * currentPage;
   const hasMorePost = currentPage < totalPages;
   function handleLoadMore() {
-    toast("Wow so easy!");
     dispatch(
-      actGetCommentAsync({ post: idPostDetail, page: currentPage + 1, exclude })
+      actGetCommentAsync({
+        post: idPostDetail,
+        page: currentPage + 1,
+        parent: 0,
+        exclude,
+      })
     );
   }
 
@@ -45,8 +49,8 @@ function PostDetailComments() {
 
     dispatch(actPostNewCommentAsync(data)).then((res) => {
       if (res.ok) {
-        // dispatch(actGetCommentAsync({ post: idPostDetail, page: 1 }));
         setContent("");
+        toast("You are success commented !");
       }
     });
   }
