@@ -57,6 +57,7 @@ function CommentItem({ item }) {
       parent: idComment,
     };
     dispatch(actPostNewCommentAsync(data, token));
+    setContent("");
   }
   function handleLoadMore() {
     dispatch(
