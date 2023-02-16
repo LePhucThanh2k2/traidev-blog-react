@@ -54,7 +54,7 @@ function HeaderMenus() {
     localStorage.removeItem("token");
   }
   return (
-    <div className="tcl-col-6">
+    <div className="tcl-col-6 " id="nav-mobile">
       {/* Main - Menu */}
       <div className="header-nav" id="main-menu">
         <ul className="header-nav__lists">{dataMenu.map(renderMenuLevel)}</ul>
@@ -89,9 +89,7 @@ function HeaderMenus() {
           <li className="user">
             <i className="fa-solid fa-sun"></i>
           </li>
-          <li className="user">
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </li>
+
           <li className="user" onClick={handleToggleMenu}>
             <i className="fa-solid fa-bars"></i>
           </li>

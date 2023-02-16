@@ -5,7 +5,12 @@ function HeaderLogo() {
     <div className="tcl-col-2">
       <div className="header-logo">
         <Link to="/">
-          <img src="/assets/images/logo.png" alt="Go to homepage" />
+          <img
+            src="/assets/images/logo.png"
+            alt="Go to homepage"
+            className="joker"
+          />
+          <span>Joker Blog</span>
         </Link>
       </div>
     </div>
