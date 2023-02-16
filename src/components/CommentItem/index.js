@@ -93,7 +93,7 @@ function CommentItem({ item }) {
             {strHtmlAfterMarkup(strMarkup)}
           </div>
           <i
-            className="ion-reply comments__section--reply"
+            className="fa-solid fa-reply comments__section--reply"
             onClick={() => {
               setShowForm(!showForm);
             }}
