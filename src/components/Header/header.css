@@ -197,26 +197,14 @@
     height: 2rem;
   }
   #form-search-mobile {
-    position: absolute;
-    top: 0;
-    left: 0;
-    max-width: 100%;
-    height: 60px;
-    z-index: 1;
-    transform: translateY(150%);
   }
   .header-search {
-    position: absolute;
-    top: 0;
-    left: 0;
-    min-width: 100%;
-    min-height: 100%;
   }
   #nav-mobile {
     /* width: 80%; */
   }
   .tcl-col-6 {
-    flex: 0 0 80%;
+    /* flex: 0 0 80%; */
     max-width: 80%;
   }
   .header-logo span {

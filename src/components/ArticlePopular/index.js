@@ -10,6 +10,32 @@ function ArticlePopular() {
   const settings = {
     dots: true,
     infinite: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -46,7 +72,7 @@ function ArticlePopular() {
     <div className="popular-news ">
       <div className="tcl-container" id="slider">
         {/* Main Title */}
-        <MainTitle>Article Popular</MainTitle>
+        <MainTitle>Bài viết phổ biến</MainTitle>
         {/* End Main Title */}
         {dataPost.length > 0 && (
           <Slider {...settings}>

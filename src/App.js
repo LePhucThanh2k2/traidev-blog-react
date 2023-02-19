@@ -1,22 +1,22 @@
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import SearchPage from "./pages/SearchPage";
-import PostDetailPage from "./pages/PostDetailPage";
 import { useEffect } from "react";
-import { actGetMainMenuAsync } from "./store/menu/action";
-import { actGetListCategoryAsync } from "./store/categories/action";
 import { useDispatch } from "react-redux";
-import backgroundPage404 from "./assets/images/page404.jpg";
-import PostCategoryPage from "./pages/PostCategoryPage";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AOS from "../node_modules/aos/dist/aos";
 import "../node_modules/aos/dist/aos.css";
-import { actFetchMeAsync } from "./store/auth/action";
+import backgroundPage404 from "./assets/images/page404.jpg";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 import ChangePassword from "./pages/ChangePassword";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import PostCategoryPage from "./pages/PostCategoryPage";
+import PostDetailPage from "./pages/PostDetailPage";
+import RegisterPage from "./pages/RegisterPage";
+import SearchPage from "./pages/SearchPage";
 import UpdateProfilePage from "./pages/UpdateProfilePage";
+import { actFetchMeAsync } from "./store/auth/action";
+import { actGetListCategoryAsync } from "./store/categories/action";
+import { actGetMainMenuAsync } from "./store/menu/action";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {

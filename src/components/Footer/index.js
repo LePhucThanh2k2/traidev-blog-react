@@ -11,11 +11,11 @@ function Footer() {
               <div className="footer-logo">
                 <img src="/assets/images/logo.png" alt="NuxtBlog Logo" />
               </div>
-              <p>© 2020, All Rights Reserved.</p>
+              <p>© 2023, All Rights Reserved.</p>
               <p>
                 Created by{" "}
                 <a href="/" target="_blank" rel="noreferrer">
-                  ZendVN
+                  JOKER
                 </a>
               </p>
             </div>
@@ -70,7 +70,7 @@ function Footer() {
                   data-show-facepile="true"
                 >
                   <blockquote cite="#" className="fb-xfbml-parse-ignore">
-                    <a href="/">Học Lập Trình Web Thông Qua Projects Thực Tế</a>
+                    <a href="/">Joker</a>
                   </blockquote>
                 </div>
               </div>

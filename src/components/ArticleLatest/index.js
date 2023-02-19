@@ -8,7 +8,7 @@ function ArticleLatest() {
   return (
     <div className="latest-news section">
       <div className="tcl-container" data-aos="fade-right">
-        <MainTitle btnLabel={"Xem thêm"}>Article Latest</MainTitle>
+        <MainTitle btnLabel={"Xem thêm"}>Bài viết mới nhất</MainTitle>
 
         {dataPost.length > 0 && (
           <div className="popular-news__list spacing">

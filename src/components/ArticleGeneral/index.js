@@ -9,7 +9,7 @@ function ArticleGeneral() {
     <div className="articles-list section" data-aos="fade-right">
       <div className="tcl-container">
         {/* Main Title */}
-        <MainTitle btnLabel="Xem them">Bai Viet Tong Hop</MainTitle>
+        <MainTitle btnLabel="Xem them">Bài viết tổng hợp</MainTitle>
         {/* End Main Title */}
         {/* End Row News List */}
         <div className="tcl-row">
