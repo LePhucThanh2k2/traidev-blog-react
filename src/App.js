@@ -23,7 +23,7 @@ function App() {
     dispatch(actFetchMeAsync());
 
     dispatch(actGetMainMenuAsync());
-    dispatch(actGetListCategoryAsync({ per_page: 100, page: 1 })).then(() => {
+    dispatch(actGetListCategoryAsync({ per_page: 50, page: 1 })).then(() => {
       AOS.init({ duration: 800, once: true });
     });
   }, [dispatch]);
